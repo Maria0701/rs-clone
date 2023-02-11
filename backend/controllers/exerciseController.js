@@ -1,38 +1,63 @@
 const asyncHandler = require('express-async-handler');
 
+const Exercise = require('../models/exerciseModel')
 // Get exercises
 // GET /api/exercises
 // Private
 const getExercises = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'Get Exercises'});
+    const exercises  = await Exercise.find()
+    res.status(200).json(exercises);
 });
 
 // Set exercise
 // POST /api/exercises
 // Private
 const setExercises = asyncHandler(async (req, res) => {
-    if (!req.body.text) {
+    if (!req.body.name) {
         res.status(400);
-        
+        throw new Error ('Please Enter the field')
     }
-    res.status(200).json({message: 'Set Exercises'});
+
+    const exercise = await Exercise.create({
+        name: req.body.name,        
+    })
+
+    res.status(200).json(exercise);
 });
 
 // update exercises
 // PUT /api/exercises/:id
 // Private
 const updateExercise = asyncHandler(async (req, res) => {
-    res.status(200).json({message:  `update Exercises ${req.params.id}`});
+    const exercise = await Exercise.findById(req.params.id);
+
+    if (!exercise)  {
+        res.status(400);
+        throw new Error ('Exercise not Found');
+    }
+
+    const updatedExercise = await Exercise.findByIdAndUpdate(req.params.id, req.body, {
+        new:true
+    });
+
+    res.status(200).json(updatedExercise);
 });
 
 // delete exercises
 // DELETE /api/exercises/:id
 // Private
 const deleteExercise = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'delete Exercises'});
+    const exercise = await Exercise.findById(req.params.id);
+
+    if (!exercise)  {
+        res.status(400);
+        throw new Error ('Exercise not Found');
+    }
+
+    await exercise.remove;
+
+    res.status(200).json({id: req.params.id});
 });
-
-
 
 module.exports = {
     getExercises,

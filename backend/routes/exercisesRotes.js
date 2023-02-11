@@ -3,7 +3,7 @@ const { getExercises, setExercises, updateExercise, deleteExercise } = require('
 const router = express.Router();
 
 
-router.route('/').get(getExercises).put(setExercises);
+router.route('/').get(getExercises).post(setExercises);
 router.route('/:id').put(updateExercise).delete(deleteExercise);
 
 
