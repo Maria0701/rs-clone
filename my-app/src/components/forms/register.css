@@ -1,0 +1,17 @@
+.registrarion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration__h1 {
+    text-align: center;
+}
+
+.registration__text {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
