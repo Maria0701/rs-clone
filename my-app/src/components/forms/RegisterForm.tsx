@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import './forms.css';
 import './register.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../../features/auth/authSlice';
 
 export function RegisterForm() {
     const [formData, setFormData] = useState({
