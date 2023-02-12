@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './forms.css';
 import './register.css';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { UsernameFormElement } from '../../models/models';
+import { toast } from 'react-toastify';
+import { Loader } from '../../ui/Loader'
+
 
 export function RegisterForm() {
     const [formData, setFormData] = useState({
@@ -13,14 +17,27 @@ export function RegisterForm() {
         password2: '',
     });
 
-    interface FormElements extends HTMLFormControlsCollection {
-        usernameInput: HTMLInputElement
-    }
-    interface UsernameFormElement extends HTMLFormElement {
-        readonly elements: FormElements
-    }
-
     const { name, email, password, password2 } = formData;
+
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.auth.user);
+    const isLoading = useAppSelector((state) => state.auth.isLoading);
+    const isError = useAppSelector((state) => state.auth.isError);
+    const isSuccess = useAppSelector((state) => state.auth.isSuccess);
+    const message = useAppSelector((state) => state.auth.message);
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess || user) {
+            navigate('/');
+        }
+
+        dispatch(reset());
+
+    }, [user, isError, isSuccess, message, navigate, dispatch]);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prevState) => ({
@@ -31,6 +48,20 @@ export function RegisterForm() {
 
     const onSubmit = (evt: React.FormEvent<UsernameFormElement>) => {
         evt.preventDefault();
+        if (password !== password2) {
+            toast.error('Passwords do not match');
+        } else {
+            const userData = {
+                email,
+                password,
+                name,
+            }
+            dispatch(register(userData))
+        }
+    }
+
+    if (isLoading) {
+        return <Loader />
     }
  
     return (        

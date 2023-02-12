@@ -1,19 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { login, reset } from '../../features/auth/authSlice';
+import { UsernameFormElement } from '../../models/models';
+import { Loader } from '../../ui/Loader';
 
 export function LoginForm() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-
-    interface FormElements extends HTMLFormControlsCollection {
-        usernameInput: HTMLInputElement
-    }
-    interface UsernameFormElement extends HTMLFormElement {
-        readonly elements: FormElements
-    }
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
+    const user = useAppSelector((state) => state.auth.user);
+    const isLoading = useAppSelector((state) => state.auth.isLoading);
+    const isError = useAppSelector((state) => state.auth.isError);
+    const isSuccess = useAppSelector((state) => state.auth.isSuccess);
+    const message = useAppSelector((state) => state.auth.message);
 
     const { email, password } = formData;
+
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess || user) {
+            navigate('/');
+        }
+
+        dispatch(reset());
+
+    }, [user, isError, isSuccess, message, navigate, dispatch]);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prevState) => ({
@@ -24,6 +43,20 @@ export function LoginForm() {
 
     const onSubmit = (evt: React.FormEvent<UsernameFormElement>) => {
         evt.preventDefault();
+        if (email === '' || password === '') {
+            toast.error('Fill in fields');
+        } else {
+            const userData = {
+                email,
+                password,
+            };
+
+            dispatch(login(userData));
+        }
+    };
+
+    if (isLoading) {
+        return <Loader />
     }
  
     return (        
