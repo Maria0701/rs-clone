@@ -105,8 +105,10 @@ img {
   margin: 0;
   background-color: transparent;
   border: 0;
+  color: var(--color);
   font-family: inherit;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .h1 {
@@ -118,4 +120,10 @@ img {
   font-weight: 400;
   text-transform: uppercase;
   color: var(--color-icons);
+}
+
+.justify-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
