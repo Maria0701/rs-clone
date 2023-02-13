@@ -1,0 +1,96 @@
+.input,
+.textarea {
+    display: flex;
+    padding-right: 14px;
+    padding-left: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 16px;
+    line-height: 19px;
+    font-family: inherit;
+    border: 1px solid var(--white);
+    border-radius: 2px;
+    background-color: transparent;
+    transition: border-color 0.3s ease-in-out;
+    border: 1px solid var(--color-input);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    opacity: 1;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--color-input);
+}
+
+.input:hover,
+.input:focus,
+.input:focus-within {
+    outline: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.select {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 0;
+    padding-right: 25px;
+    font-size: 14px;
+    line-height: 100%;
+    appearance: none;      
+    background-color: transparent;
+    border: 1px solid var(--color-gray);
+    /*background-image: url('../img/icon-shevron-down.svg');*/
+    background-size: 12px 9.5px;
+    background-repeat: no-repeat;
+    background-position: right 10px bottom 10px;
+    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.select:hover,
+.select:focus {
+    color: var(--color-menu);
+}
+
+
+.check {
+    width: 13px;
+    height: 13px;
+    appearance: none;        
+    background-color: transparent;
+    border: 1px solid var(--color-check-border);  
+
+}
+
+.check:checked {
+    background-color: var(--color-menu);
+    border-color: var(--color-menu);
+    /*background-image: url('../img/icon-tick.svg');*/
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+}
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.btn--block {
+    padding: 10px 16px;
+    background-color: var(--color-green);
+    color: var(--white);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn--block:hover {
+    background-color: var(--color-button);
+}

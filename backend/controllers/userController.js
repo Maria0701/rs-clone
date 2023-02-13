@@ -13,7 +13,8 @@ const generateToken = (id) => {
 // GET /api/users
 // Private
 const getUsers = asyncHandler(async (req, res) => {
-    res.json({message: 'Users'})
+    const user  = await User.find()
+    res.status(200).json(user);
 });
 
 // Get users
