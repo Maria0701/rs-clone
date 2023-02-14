@@ -8,6 +8,7 @@ import { Exercise } from './pages/Exercise';
 import { PersonalPage } from './pages/PersonalPage';
 import { Calendar } from './pages/Calendar';
 import { Register } from './pages/Register';
+import Questioner from './pages/Questioner';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/questioner' element={<Questioner />} />
           <Route path='/' element={<ProgramsIndex />} />
           <Route path='/program' element={<ProgramPage />} />
           <Route path='/exercise' element={<Exercise />} />

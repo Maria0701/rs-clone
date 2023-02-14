@@ -24,4 +24,7 @@ export const MENU_ARRAY = [
         link: '/personal',
         icon: 'profile'
     },
-]
+];
+
+export const GENDERS:string[] = ['male', 'female'];
+export const Targets:string[] = ['Loose weight', 'Gain Weight', 'Stay Fit'];

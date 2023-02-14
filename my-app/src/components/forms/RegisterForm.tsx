@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../../features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { UsernameFormElement } from '../../models/models';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { Loader } from '../../ui/Loader'
 
 
@@ -65,7 +65,8 @@ export function RegisterForm() {
     }
  
     return (        
-            <form className='form form--register'  onSubmit={onSubmit}>
+            <form className='form form--register' onSubmit={onSubmit}>
+                <ToastContainer />
                 <label className="form__label">
                     <input className='input form__input'
                         type="text"

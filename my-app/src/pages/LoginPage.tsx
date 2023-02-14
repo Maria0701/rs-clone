@@ -5,7 +5,7 @@ export function LoginPage() {
     return (
         <>
         <Header />
-        <main>
+        <main className="justify-center">
             <div className="container">
                 <section className="registrarion">
                 <h1 className="h1 registration__h1">Login</h1>
