@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { login, reset } from '../../features/auth/authSlice';
 import { UsernameFormElement } from '../../models/models';
@@ -61,6 +62,7 @@ export function LoginForm() {
  
     return (        
             <form className='form form--login'  onSubmit={onSubmit}>
+               <ToastContainer />
                 <label className="form__label">
                     <input className='input form__input'
                         type="email"

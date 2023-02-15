@@ -1,10 +1,16 @@
+import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/header";
 
 export function ProgramPage() {
     return (
         <>
             <Header />
-            <p>Страница программы</p>
+            <main>
+                <div className="container">
+                    <p>Страница программы</p>
+                </div>
+            </main>            
+            <Footer />
         </>
     );
 };

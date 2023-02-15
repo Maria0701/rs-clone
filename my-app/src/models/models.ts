@@ -22,3 +22,9 @@ export interface FormElements extends HTMLFormControlsCollection {
 export interface UsernameFormElement extends HTMLFormElement {
     readonly elements: FormElements
 }
+
+export const EQuestioner = {
+    setGender :'setGender',
+    setChange : 'setChange',
+    setDays :'setDays',
+};
