@@ -1,16 +1,9 @@
-import { Footer } from "../components/footer/Footer";
-import { Header } from "../components/header/header";
+import {Wrapper} from "../components/wrappers/Wrapper";
 
 export function ProgramsIndex() {
     return (
-        <>
-            <Header />
-            <main>
-                <div className="container">
-                <p>Эта страница должна быть стартовой для зарегистрированного человека</p>
-                </div>
-            </main>            
-            <Footer />
-        </>
+        <Wrapper>
+            <p>Эта страница должна быть стартовой для зарегистрированного человека</p>
+        </Wrapper>
     );
 };

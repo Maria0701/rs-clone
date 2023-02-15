@@ -7,11 +7,6 @@ export const MENU_ARRAY = [
     {
         name: 'Программа',
         link: '/program',
-        icon: 'program'
-    },
-    {
-        name: 'Упражнения',
-        link: '/exercise',
         icon: 'exercise'
     },
     {

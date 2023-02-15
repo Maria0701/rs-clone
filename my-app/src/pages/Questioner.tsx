@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import { ToastContainer } from 'react-toastify';
 import { Footer } from '../components/footer/Footer'
 import { Header } from '../components/header/header'
+import { Wrapper } from '../components/wrappers/Wrapper';
 import { GENDERS, Targets } from '../consts/const';
 import { EQuestioner, UsernameFormElement } from '../models/models';
 import CustomSelect from '../ui/CustomSelect';
@@ -77,50 +78,44 @@ export default function Questioner() {
      
 
     return (
-        <>
-            <Header />
-            <main  className="justify-center">
-                <div className="container">
-                <form className='form form--login'  onSubmit={onSubmit}>
-                    <ToastContainer />
-                    <label className="form__label">
-                        <CustomSelect options={GENDERS} switchItem={switchGender} text={'Укажите пол'}/>
-                    </label>
-                    <label className="form__label">
-                        <input className='input form__input'
-                            type="number"
-                            value={state.weight}
-                            name="weight"
-                            placeholder='Please enter password'
-                            onChange={onChange}
-                            />
-                    </label>
-                    <label className="form__label">
-                        <input className='input form__input'
-                            type="number"
-                            value={state.height}
-                            name="height"
-                            placeholder='Please enter password'
-                            onChange={onChange}
-                            />
-                    </label>
-                    <label className="form__label">
-                        <CustomSelect options={Targets} switchItem={switchTargets} text={'Выберите цель'}/>
-                    </label>
-                    <label className="form__label">
-                        <input className='input form__input'
-                            type="number"
-                            value={state.days}
-                            name="days"
-                            placeholder='Please enter password'
-                            onChange={onChange}
-                            />
-                    </label>
-                    <button type="submit" className='btn btn--block'>Submit</button>
-                </form>
-                </div>
-            </main>            
-            <Footer />
-        </>
+        <Wrapper>
+            <form className='form form--login'  onSubmit={onSubmit}>
+                <ToastContainer />
+                <label className="form__label">
+                    <CustomSelect options={GENDERS} switchItem={switchGender} text={'Укажите пол'}/>
+                </label>
+                <label className="form__label">
+                    <input className='input form__input'
+                        type="number"
+                        value={state.weight}
+                        name="weight"
+                        placeholder='Please enter password'
+                        onChange={onChange}
+                        />
+                </label>
+                <label className="form__label">
+                    <input className='input form__input'
+                        type="number"
+                        value={state.height}
+                        name="height"
+                        placeholder='Please enter password'
+                        onChange={onChange}
+                        />
+                </label>
+                <label className="form__label">
+                    <CustomSelect options={Targets} switchItem={switchTargets} text={'Выберите цель'}/>
+                </label>
+                <label className="form__label">
+                    <input className='input form__input'
+                        type="number"
+                        value={state.days}
+                        name="days"
+                        placeholder='Please enter password'
+                        onChange={onChange}
+                        />
+                </label>
+                <button type="submit" className='btn btn--block'>Submit</button>
+            </form>
+        </Wrapper>       
     )
 }

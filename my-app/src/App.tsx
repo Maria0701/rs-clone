@@ -12,22 +12,19 @@ import Questioner from './pages/Questioner';
 import data from './data.json'
 
 function App() {
-  return (
-    <div className="App">      
-        <Routes>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/questioner' element={<Questioner />} />
-          <Route path='/' element={<ProgramsIndex />} />
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/programs-index' element={<ProgramsIndex />} />
-          <Route path='/program' element={<ProgramPage trainings={data.trainings} />} />
-          <Route path='/exercise/:id' element={<Exercise trainings={data.trainings} />} />
-          <Route path='/personal' element={<PersonalPage />} />
-          <Route path='/calendar' element={<Calendar />} />
-        </Routes>
-      <footer></footer>
-    </div>
+  return (   
+    <Routes>
+      <Route path='/login' element={<LoginPage />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='/questioner' element={<Questioner />} />
+      <Route path='/' element={<ProgramsIndex />} />
+      <Route path='/' element={<LoginPage />} />
+      <Route path='/programs-index' element={<ProgramsIndex />} />
+      <Route path='/program' element={<ProgramPage trainings={data.trainings} />} />
+      <Route path='/exercise/:id' element={<Exercise trainings={data.trainings} />} />
+      <Route path='/personal' element={<PersonalPage />} />
+      <Route path='/calendar' element={<Calendar />} />
+    </Routes>
   );
 }
 
