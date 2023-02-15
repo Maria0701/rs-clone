@@ -13,7 +13,7 @@ export function LoginForm() {
         password: '',
     });
     const dispatch = useAppDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const user = useAppSelector((state) => state.auth.user);
     const isLoading = useAppSelector((state) => state.auth.isLoading);
     const isError = useAppSelector((state) => state.auth.isError);
