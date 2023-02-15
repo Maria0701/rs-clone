@@ -9,6 +9,7 @@ import { ProgramPage } from './pages/ProgramPage';
 import { Exercise } from './pages/Exercise';
 import { PersonalPage } from './pages/PersonalPage';
 import { Calendar } from './pages/Calendar';
+import data from './data.json'
 
 function App() {
   return (
@@ -25,8 +26,8 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginPage />} />
           <Route path='/programs-index' element={<ProgramsIndex />} />
-          <Route path='/program' element={<ProgramPage />} />
-          <Route path='/exercise' element={<Exercise />} />
+          <Route path='/program' element={<ProgramPage trainings={data.trainings} />} />
+          <Route path='/exercise/:id' element={<Exercise trainings={data.trainings} />} />
           <Route path='/personal' element={<PersonalPage />} />
           <Route path='/calendar' element={<Calendar />} />
         </Routes>
