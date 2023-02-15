@@ -1,0 +1,15 @@
+.header {
+    background-color: var(--white);
+    box-shadow: 0px 2px 16px -4px rgba(58, 53, 65, 0.2);
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+}
+
+.header__right {
+    display: flex;
+    gap: 16px;
+    margin-left: auto;
+}

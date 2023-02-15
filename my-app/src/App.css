@@ -1,0 +1,129 @@
+html {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  --color: #636363;/*ok*/
+  --color-menu: #CE8884;
+  --color-menu-hover: #EF8396;/*ok*/
+  --white: #ffffff;/*ok*/
+  --color-search: #A3A3A3;/*ok*/
+  --color-send-btn: #E4B5AF;
+  --color-footer-line: #F2F2F2;/*ok*/
+  --color-footer-text: #4F4F4F;/*ok*/
+  --color-icons: #282828;/*ok*/
+  --color-gray: #E0E0E0;/*ok*/
+  --color-gray-light: #E8E8E8;/*ok*/
+  --color-gray-dark: #333333;/*ok*/
+  --color-price-privacy: #828282;/*ok*/
+  --color-check-border: #CACCCF;   /*ok*/
+  --color-input: #A0A0A0;/*ok*/
+  --color-tag-border: #BDBDBD;/*ok*/
+  --color-filter-btn: #52575C;/*ok*/
+  --color-green: #30ac90;/*ok*/
+
+  
+  --color-send-btn2: #5B6876;
+  --bg-dark: #042956;
+  --bg-hover: #092D8E;
+  --color-button: #82CDE5;
+  --color-button-hover: #0076A8;    
+  --border-color-sidebar: #C2D4EB;
+ 
+
+  --large-screen: 1200px;
+  --tablet-screen: 750px;
+  --mobile-screen: 320px;
+
+}
+
+body {
+  display:flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--color);
+  font-family: 'Montserrat', 'Arial', sans-serif;  
+  font-weight: 400;
+  font-style: normal;
+}
+
+main {
+  flex-grow: 1;;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+
+.visually-hidden:not(:focus) {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.container {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+}
+
+
+@media (min-width: 1200px) {
+
+  .container {
+    max-width: var(--large-screen);
+  }
+}
+
+.btn {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: 0;
+  color: var(--color);
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-icons);
+}
+
+.justify-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
