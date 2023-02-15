@@ -28,3 +28,14 @@ export const EQuestioner = {
     setChange : 'setChange',
     setDays :'setDays',
 };
+
+
+export interface ITraining {
+  id: string;
+  name: string;
+  url: string;
+}
+
+export interface ITrainings {
+  trainings: ITraining[]
+}
