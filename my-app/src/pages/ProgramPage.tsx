@@ -1,5 +1,3 @@
-import { Footer } from "../components/footer/Footer";
-import { Header } from "../components/header/header";
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ITrainings } from "../models/models"

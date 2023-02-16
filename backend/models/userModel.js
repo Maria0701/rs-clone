@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+const weightSchema = mongoose.Schema({
+    value: { type: Number},
+    date: { type: Date, default: Date.now },
+})
+
 
 const userSchema = mongoose.Schema({
     name: {
@@ -16,7 +21,29 @@ const userSchema = mongoose.Schema({
     },
     role: {
         type: Number
-    }
+    },
+    gender: {
+        type: String,
+    },
+    weight: [{
+        type: weightSchema,
+    }],
+    height: {
+        type: Number,
+        min: 100,
+        max: 2100
+    },
+    target: {
+        type: String
+    },
+    days: {
+        type: Number
+    },
+    registrationDate: { 
+        type: Date, 
+        default: Date.now,
+        immutable: true
+    },
 }, {
     timstamps: true,
 });

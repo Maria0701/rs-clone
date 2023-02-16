@@ -51,7 +51,6 @@ export function LoginForm() {
                 email,
                 password,
             };
-
             dispatch(login(userData));
         }
     };

@@ -109,24 +109,41 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     const updateduser = await User.findByIdAndUpdate(req.params.id, req.body, {
-        new:true
+        new: true
     });
 
     res.status(200).json(updateduser);
 });
 
-// delete users
-// DELETE /api/users/:id
+// update users
+// PUT /api/users/weight/:id
 // Private
-const deleteUser = asyncHandler(async (req, res) => {
-    const user = await user.findById(req.params.id);
+const updateUserWeight = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
 
     if (!user)  {
         res.status(400);
         throw new Error ('user not Found');
     }
 
-    await user.remove;
+    var update = {$push: {weight: {value: req.body} }};
+    const updatedWeight = await User.findByIdAndUpdate(user._id, update,{upsert: true});
+
+    res.status(200).json(updatedWeight);
+});
+
+// delete users
+// DELETE /api/users/:id
+// Private
+const deleteUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user)  {
+        res.status(400);
+        throw new Error ('user not Found');
+    }
+
+    await user.remove();
 
     res.status(200).json({id: req.params.id});
 });
@@ -139,5 +156,6 @@ module.exports = {
     updateUser,
     deleteUser,
     loginUser,
-    getMe
+    getMe, 
+    updateUserWeight
 };

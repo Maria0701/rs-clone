@@ -14,14 +14,14 @@ export default function CustomSelect({options, switchItem, text}:IOptions) {
         setIsOptionOpen(!isOptionOpen);
     };
 
-    const linkClickHandler = (ind:number) => {
-        switchItem(options[selectedOption]);
-        setSelectedOption(ind);        
+    const linkClickHandler = (ind:number) => {       
+        setSelectedOption(ind);
+               
     };
 
     useEffect(() => {
-        setIsOptionOpen(false);
-        
+        setIsOptionOpen(false); 
+        switchItem(options[selectedOption]);       
     }, [selectedOption]);
 
 
@@ -41,11 +41,6 @@ export default function CustomSelect({options, switchItem, text}:IOptions) {
                     role='listbox'
                     aria-activedescendant={options[selectedOption]}
                     tabIndex={-1}>
-                    <li 
-                        className='options__li'
-                        tabIndex={0}
-                        id=''
-                        >{text}</li>
                     {
                         options.map((option, ind) => (
                             <li 
