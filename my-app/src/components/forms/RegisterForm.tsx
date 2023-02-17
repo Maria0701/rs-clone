@@ -35,10 +35,6 @@ export function RegisterForm() {
             navigate('/questioner');
         }
 
-        if (user) {
-            navigate('/');
-        }
-
         dispatch(reset());
 
     }, [user, isError, isSuccess, message, navigate, dispatch]);

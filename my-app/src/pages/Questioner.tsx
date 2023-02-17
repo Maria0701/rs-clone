@@ -14,10 +14,10 @@ export default function Questioner() {
 
     const navigate = useNavigate();
     const dispatchApp = useAppDispatch();
-    const isLoading = useAppSelector((state) => state.updateUser.isLoading);
-    const isError = useAppSelector((state) => state.updateUser.isError);
+    const isUpdLoading = useAppSelector((state) => state.updateUser.isLoading);
+    const isUpdError = useAppSelector((state) => state.updateUser.isError);
     const message = useAppSelector((state) => state.updateUser.message);
-    const isSuccess = useAppSelector((state) => state.updateUser.isSuccess)
+    const isUpdSuccess = useAppSelector((state) => state.updateUser.isSuccess)
     const user = useAppSelector((state) => state.auth.user)
 
     const [state, dispatch] = useReducer(formReducer , initialUpdateState);
@@ -68,19 +68,19 @@ export default function Questioner() {
     };
 
     useEffect(() => {
-        if (isError) {
+        if (isUpdError) {
             toast.error(message);
         }
 
-        if (isSuccess) {
+        if (isUpdSuccess) {
             navigate('/');
         }
 
         //dispatch(reset());
 
-    }, [isError, isSuccess, message, navigate]);
+    }, [isUpdError, isUpdSuccess, message, navigate]);
 
-    if (isLoading) {
+    if (isUpdLoading) {
         return <Loader />
     }
 

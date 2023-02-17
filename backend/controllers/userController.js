@@ -101,14 +101,22 @@ const loginUser = asyncHandler(async (req, res) => {
 // PUT /api/users/:id
 // Private
 const updateUser = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
 
-    if (!user)  {
+    if (!req.params.id)  {
         res.status(400);
         throw new Error ('user not Found');
     }
 
-    const updateduser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const newObj = {
+        days: req.body.days,
+        gender: req.body.gender,        
+        height: req.body.height,
+        id: req.body.id,
+        target: req.body.target,
+        $push: {weight: {value: req.body.weight2} },
+    }
+
+    const updateduser = await User.findByIdAndUpdate(req.params.id, newObj, {
         new: true
     });
 
@@ -121,7 +129,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const updateUserWeight = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
 
-    if (!user)  {
+    if (!req.params.id)  {
         res.status(400);
         throw new Error ('user not Found');
     }

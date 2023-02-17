@@ -15,8 +15,7 @@ export default function CustomSelect({options, switchItem, text}:IOptions) {
     };
 
     const linkClickHandler = (ind:number) => {       
-        setSelectedOption(ind);
-               
+        setSelectedOption(ind);               
     };
 
     useEffect(() => {
