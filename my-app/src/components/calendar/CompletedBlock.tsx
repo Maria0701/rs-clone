@@ -1,5 +1,6 @@
-import React from 'react'
-import { SvgElt } from '../../ui/SvgElt'
+import { format} from 'date-fns';
+import { useAppSelector } from '../../app/hooks'
+import CompletedElement from './CompletedElement';
 
 const completedExample = {
     date: '01-02-2023',
@@ -11,37 +12,18 @@ const completedExample = {
 }
 
 export default function CompletedBlock() {
+    const completed = useAppSelector((state) => state.completed.completedForDate);
+    const activeDate = useAppSelector((state) => state.calendar.selectedDay);
+    console.log(activeDate, format(new Date(activeDate),'MM/dd'))
   return (
     <div className='completed-block'>
-        <h1 className='h1'>Exercises completed on</h1>
+        <h1 className='h1'>Exercises completed on {format(new Date(activeDate),'dd.MM')}</h1>
         <div className='completed-items'>
-            <div className='completed-item'>
-                <div className='completed-item__img'>
-                    <img src={`${process.env.PUBLIC_URL}/img/${completedExample.preview}`} alt={`${completedExample.exercise}`}/>
-                </div>
-                <div className='completed-item__content'>                    
-                    <div className='completed-item__name'>{completedExample.exercise}</div>
-                    <time className='completed-item__date' dateTime={`${completedExample.date}`}>
-                        <SvgElt width={16} height={16} name={'calendar'} /> 
-                        {completedExample.date}</time>
-                    <div className='completed-item__time'>
-                        <SvgElt width={16} height={16} name={'time'} /> 
-                        {completedExample.time}
-                    </div>
-                    <a className='completed-item__link' href="#">Повторить</a>
-                </div>
-            </div>
-            <div className='completed-item'>
-                <div className='completed-item__img'>
-                    <img src={`${process.env.PUBLIC_URL}/img/${completedExample.preview}`} alt={`${completedExample.exercise}`}/>
-                </div>
-                <div className='completed-item__content'>
-                    <time  className='completed-item__date' dateTime={`${completedExample.date}`}>{completedExample.date}</time>
-                    <div className='completed-item__name'>{completedExample.exercise}</div>
-                    <div className='completed-item__time'>{completedExample.time}</div>
-                    <a className='completed-item__link' href="#">Повторить</a>
-                </div>
-            </div>
+            { completed.length > 0 
+                ? completed.map((item) => <CompletedElement element={item} key={item.id}/> )
+                : <p>You Did not exercise that day</p>
+            }
+            
         </div>
     </div>
   )

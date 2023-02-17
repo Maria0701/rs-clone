@@ -62,3 +62,16 @@ export interface ITraining {
 export interface ITrainings {
   trainings: ITraining[]
 }
+
+export interface ICompleted {
+    program_name: String,
+    program_id:  String,
+    exercise_name:  String,
+    exercise_id:  String,
+    preview:  String,
+    time: Number,
+    user_id: string,
+    date?: string,
+    id?: string
+}
+

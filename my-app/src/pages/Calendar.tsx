@@ -3,8 +3,7 @@ import CompletedBlock from "../components/calendar/CompletedBlock";
 import { Wrapper } from "../components/wrappers/Wrapper";
 
 
-export function Calendar() {
-
+export function Calendar() {    
 
     return (
         <Wrapper>

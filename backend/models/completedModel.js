@@ -20,9 +20,11 @@ const completedSchema = mongoose.Schema({
         type: String
     },
     time: {
-        type: String
+        type: Number
     },
     user_id:  {
         type: String
     },
 })
+
+module.exports = mongoose.model('Completed', completedSchema);

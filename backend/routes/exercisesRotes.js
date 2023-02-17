@@ -8,4 +8,4 @@ router.route('/:id').put(updateExercise).delete(deleteExercise);
 
 
 
-module.exports =router;
+module.exports=router;
