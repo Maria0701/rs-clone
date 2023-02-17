@@ -24,7 +24,10 @@ export default function CompletedBlock() {
                     <time className='completed-item__date' dateTime={`${completedExample.date}`}>
                         <SvgElt width={16} height={16} name={'calendar'} /> 
                         {completedExample.date}</time>
-                    <div className='completed-item__time'>{completedExample.time}</div>
+                    <div className='completed-item__time'>
+                        <SvgElt width={16} height={16} name={'time'} /> 
+                        {completedExample.time}
+                    </div>
                     <a className='completed-item__link' href="#">Повторить</a>
                 </div>
             </div>

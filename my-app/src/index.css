@@ -150,6 +150,7 @@ code {
 .completed-item {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  width: 100%;
   border: 1px solid var(--color-footer-line);
 }
 
@@ -188,10 +189,23 @@ code {
   align-items: center;
   gap: 4px;
   font-size: 0.8rem;
+  line-height: 1;
 }
 
 .completed-item__time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  line-height: 1;
+}
 
+.completed-item__link {
+  line-height: 1;
+  font-size: 0.9rem;
+  color: var(--color-green);
+  text-transform: lowercase;
+  text-decoration: none;
 }
 
 @media (min-width: 800px) {

@@ -88,8 +88,7 @@ export const Exercise: FC<ITrainings> = ({ trainings }) => {
         </div>
         <div className="exercise__btns">
           <button onClick={onPlay} className="btn" aria-label='Start'>
-            <SvgElt width={20} height={20} name={'play'} /> 
-            
+            <SvgElt width={20} height={20} name={'play'} />             
           </button>
           <button onClick={onPause} className="btn" aria-label='Pause'>
             <SvgElt width={20} height={20} name={'pause'} /> 
