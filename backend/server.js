@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended:false }));
 app.use('/api/exercises', require('./routes/exercisesRotes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/completed', require('./routes/exercisesCompleted'));
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`server running on port ${port}`));

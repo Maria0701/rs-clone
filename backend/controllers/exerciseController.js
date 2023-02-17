@@ -54,7 +54,7 @@ const deleteExercise = asyncHandler(async (req, res) => {
         throw new Error ('Exercise not Found');
     }
 
-    await exercise.remove;
+    await exercise.remove();
 
     res.status(200).json({id: req.params.id});
 });

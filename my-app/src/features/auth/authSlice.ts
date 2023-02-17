@@ -25,7 +25,6 @@ const initialState: authState = {
 export const register = createAsyncThunk('auth/register', async (user:IRegisterData, thunkAPI) => {
     try {
         return authService.register(user);
-
     } catch(error: unknown) {
         if (error instanceof Error) {
             const message =  error.message || error.toString();
@@ -51,7 +50,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
     authService.logout();
 })
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {

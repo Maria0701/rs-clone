@@ -3,9 +3,8 @@ import {  IRegisterData } from "../../models/models";
 
 const API_URL = '/api/users/';
 
-
 const register = async (userData: IRegisterData) => {
-    const response = await axios.post(API_URL, userData)
+    const response = await axios.post(API_URL, userData);
 
     if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))

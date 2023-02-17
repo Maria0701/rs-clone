@@ -89,6 +89,15 @@ code {
   border-bottom: 1px solid var(--color-price-privacy)
 }
 
+.day-slot__exercises {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--bg-hover);
+}
+
 .day-slot--nounderline {
   border-bottom: 0;
 }
@@ -97,9 +106,12 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
   padding: 10px;
   border-radius: 50%;
   aspect-ratio: 1/1;
+  line-height: 1;
 }
 
 .day-slot--today {
@@ -133,13 +145,11 @@ code {
 .calendar-wrapper {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  align-content: flex-start;
   gap: 20px;
 }
 
-.completed-block {
-  padding-left: 20px;
-  border-left:  1px solid var(--color-price-privacy);
-}
+
 
 .completed-items {
   display: grid;
@@ -211,5 +221,10 @@ code {
 @media (min-width: 800px) {
   .calendar-wrapper {
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+
+  .completed-block {
+    padding-left: 20px;
+    border-left:  1px solid var(--color-price-privacy);
   }
 }
