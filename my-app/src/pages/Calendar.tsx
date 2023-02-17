@@ -1,17 +1,17 @@
-import { Footer } from "../components/footer/Footer";
-import { Header } from "../components/header/header";
+import { CalendarBlock } from "../components/calendar/CalendarBlock";
+import CompletedBlock from "../components/calendar/CompletedBlock";
+import { Wrapper } from "../components/wrappers/Wrapper";
 
 
 export function Calendar() {
+
+
     return (
-        <>
-            <Header />
-            <main>
-                <div className="container">
-                    <p>Страница Календаря - возможно будет попап</p>
-                </div>
-            </main>
-            <Footer />
-        </>
+        <Wrapper>
+            <div className="calendar-wrapper">
+                <CalendarBlock />
+                <CompletedBlock />
+            </div>
+        </Wrapper>
     );
 };

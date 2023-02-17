@@ -38,7 +38,6 @@ export const register = createAsyncThunk('auth/register', async (user:IRegisterD
 export const login = createAsyncThunk('auth/login', async (user:Pick<IRegisterData, 'email' | 'password'>, thunkAPI) => {
     try {
         return authService.login(user);
-
     } catch(error: unknown) {
         if (error instanceof Error) {
             const message =  error.message || error.toString();
@@ -46,6 +45,7 @@ export const login = createAsyncThunk('auth/login', async (user:Pick<IRegisterDa
         }
     }
 });
+
 
 export const logout = createAsyncThunk('auth/logout', async () => {
     authService.logout();

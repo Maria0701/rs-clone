@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IRegisterData } from "../../models/models";
+import {  IRegisterData } from "../../models/models";
 
 const API_URL = '/api/users/';
 
@@ -10,7 +10,7 @@ const register = async (userData: IRegisterData) => {
     if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))
     }
-    console.log(response.data)
+
     return response.data;
 };
 
@@ -24,16 +24,15 @@ const login = async (userData: Pick<IRegisterData, 'email' | 'password'>) => {
     if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))
     }
-
-    console.log(response.data)
-
     return response.data;
 };
+
+
 
 const authService = {
     register,
     logout,
-    login
+    login,
 };
 
 export default authService;

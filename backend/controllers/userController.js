@@ -101,6 +101,49 @@ const loginUser = asyncHandler(async (req, res) => {
 // PUT /api/users/:id
 // Private
 const updateUser = asyncHandler(async (req, res) => {
+
+    if (!req.params.id)  {
+        res.status(400);
+        throw new Error ('user not Found');
+    }
+
+    const newObj = {
+        days: req.body.days,
+        gender: req.body.gender,        
+        height: req.body.height,
+        id: req.body.id,
+        target: req.body.target,
+        $push: {weight: {value: req.body.weight2} },
+    }
+
+    const updateduser = await User.findByIdAndUpdate(req.params.id, newObj, {
+        new: true
+    });
+
+    res.status(200).json(updateduser);
+});
+
+// update users
+// PUT /api/users/weight/:id
+// Private
+const updateUserWeight = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (!req.params.id)  {
+        res.status(400);
+        throw new Error ('user not Found');
+    }
+
+    var update = {$push: {weight: {value: req.body} }};
+    const updatedWeight = await User.findByIdAndUpdate(user._id, update,{upsert: true});
+
+    res.status(200).json(updatedWeight);
+});
+
+// delete users
+// DELETE /api/users/:id
+// Private
+const deleteUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
 
     if (!user)  {
@@ -108,25 +151,7 @@ const updateUser = asyncHandler(async (req, res) => {
         throw new Error ('user not Found');
     }
 
-    const updateduser = await User.findByIdAndUpdate(req.params.id, req.body, {
-        new:true
-    });
-
-    res.status(200).json(updateduser);
-});
-
-// delete users
-// DELETE /api/users/:id
-// Private
-const deleteUser = asyncHandler(async (req, res) => {
-    const user = await user.findById(req.params.id);
-
-    if (!user)  {
-        res.status(400);
-        throw new Error ('user not Found');
-    }
-
-    await user.remove;
+    await user.remove();
 
     res.status(200).json({id: req.params.id});
 });
@@ -139,5 +164,6 @@ module.exports = {
     updateUser,
     deleteUser,
     loginUser,
-    getMe
+    getMe, 
+    updateUserWeight
 };

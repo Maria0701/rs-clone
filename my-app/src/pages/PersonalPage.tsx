@@ -1,16 +1,9 @@
-import { Footer } from "../components/footer/Footer";
-import { Header } from "../components/header/header";
+import { Wrapper } from "../components/wrappers/Wrapper";
 
 export function PersonalPage() {
     return (
-        <>
-            <Header />
-            <main>
-                <div className="container">
-                    <p>Страница человека</p>
-                </div>
-            </main>
-            <Footer />
-        </>
+        <Wrapper>
+            <p>Страница человека</p>
+        </Wrapper>
     );
 };

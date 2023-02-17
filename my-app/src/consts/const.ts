@@ -23,3 +23,4 @@ export const MENU_ARRAY = [
 
 export const GENDERS:string[] = ['male', 'female'];
 export const Targets:string[] = ['Loose weight', 'Gain Weight', 'Stay Fit'];
+export const DAYS_NAMES:string[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];

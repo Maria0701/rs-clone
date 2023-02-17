@@ -31,8 +31,8 @@ export function RegisterForm() {
         if (isError) {
             toast.error(message);
         }
-        if (isSuccess || user) {
-            navigate('/');
+        if (isSuccess) {
+            navigate('/questioner');
         }
 
         dispatch(reset());

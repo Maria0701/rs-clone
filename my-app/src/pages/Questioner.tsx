@@ -1,69 +1,61 @@
-import React, { useReducer } from 'react'
-import { ToastContainer } from 'react-toastify';
-import { Footer } from '../components/footer/Footer'
-import { Header } from '../components/header/header'
+import React, { useReducer,  useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { Wrapper } from '../components/wrappers/Wrapper';
 import { GENDERS, Targets } from '../consts/const';
-import { EQuestioner, UsernameFormElement } from '../models/models';
+import { update } from '../features/userUpdates/userUpdatesSlice';
+import { EQuestioner, IUpdateData, UsernameFormElement } from '../models/models';
+import { formReducer, initialUpdateState } from '../reducers/updateUserReducer';
 import CustomSelect from '../ui/CustomSelect';
-
-interface IInitialState {
-    gender: string,
-    weight: number,
-    height: number,
-    target: string,
-    days: number
-};
-
-interface IPayload { 
-    payload: { 
-        name?: string, 
-        value: string 
-    },
-    type: string
-};
-
-
-const formReducer = (state:IInitialState , action: IPayload) => {
-    console.log(action)
-    switch(action.type) {
-        case EQuestioner.setChange:
-            return {
-                ...state,
-                [action.payload.name!]: action.payload.value
-            };
-        case EQuestioner.setDays:
-            return {
-                ...state,
-                gender: action.payload.value
-            };
-        case EQuestioner.setDays:
-            return {
-                ...state,
-                target: action.payload.value
-            }
-        default:
-            return state;
-    }
-}
+import { Loader } from '../ui/Loader';
 
 export default function Questioner() {
-    const initialState = {
-        gender: '',
-        weight: 0,
-        height: 0,
-        target: '',
-        days: 0
-    };
 
+    const navigate = useNavigate();
+    const dispatchApp = useAppDispatch();
+    const isUpdLoading = useAppSelector((state) => state.updateUser.isLoading);
+    const isUpdError = useAppSelector((state) => state.updateUser.isError);
+    const message = useAppSelector((state) => state.updateUser.message);
+    const isUpdSuccess = useAppSelector((state) => state.updateUser.isSuccess)
+    const user = useAppSelector((state) => state.auth.user)
 
-    const [state, dispatch] = useReducer(formReducer, initialState);
+    const [state, dispatch] = useReducer(formReducer , initialUpdateState);
+
 
     const onSubmit = (evt: React.FormEvent<UsernameFormElement>) => {
         evt.preventDefault();
+        if (state.weight > 150 || state.weight < 40)  {
+            toast.error('The Weight should be higher, then 40 and lower then 150')
+        } else if (state.height! > 200 || state.height! < 100) {
+            toast.error('The Height should be higher, then 100 and lower then 200')
+        } else if (state.days! > 7 || state.days! < 1) {
+            console.log(state.days)
+            toast.error('The number of days should be between1 and 7')
+        } else{
+            const userData:IUpdateData = {
+                id: user!._id as String,
+                gender: state.gender,
+                weight2: Number(state.weight),
+                height: Number(state.height),
+                target: state.target,
+                days: Number(state.days)
+            }
+            dispatchApp(update(userData));
+        }
     }
+   
 
     const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === 'weight' && (parseInt(e.target.value) > 150 || parseInt(e.target.value) < 40) ) {
+            toast.error('The Weight should be higher, then 40 and lower then 150')
+        }
+        if (e.target.name === 'height' && (parseInt(e.target.value) > 200 || parseInt(e.target.value) < 100) ) {
+            toast.error('The Height should be higher, then 100 and lower then 200')
+        }
+        if (e.target.name === 'days' && (parseInt(e.target.value) > 7 || parseInt(e.target.value) < 1) ) {
+            toast.error('The number of days should be between1 and 7')
+        }
         dispatch({type: EQuestioner.setChange, payload: {name: e.target.name, value: e.target.value}})
     };
 
@@ -72,43 +64,63 @@ export default function Questioner() {
     };
 
     const switchTargets = (value: string) => {
-        dispatch({type: EQuestioner.setGender, payload: { value: value}})
+        dispatch({type: EQuestioner.switchTarget, payload: { value: value}})
     };
 
-     
+    useEffect(() => {
+        if (isUpdError) {
+            toast.error(message);
+        }
+
+        if (isUpdSuccess) {
+            navigate('/');
+        }
+
+        //dispatch(reset());
+
+    }, [isUpdError, isUpdSuccess, message, navigate]);
+
+    if (isUpdLoading) {
+        return <Loader />
+    }
 
     return (
         <Wrapper>
             <form className='form form--login'  onSubmit={onSubmit}>
                 <ToastContainer />
                 <label className="form__label">
+                    <p>Gender</p>
                     <CustomSelect options={GENDERS} switchItem={switchGender} text={'Укажите пол'}/>
                 </label>
                 <label className="form__label">
+                    <p>Weight (sm)</p>
                     <input className='input form__input'
                         type="number"
-                        value={state.weight}
+                        value={state.weight > 0 ? state.weight : ''}
                         name="weight"
                         placeholder='Please enter password'
                         onChange={onChange}
                         />
                 </label>
                 <label className="form__label">
+                    <p>Height (sm)</p>
                     <input className='input form__input'
                         type="number"
-                        value={state.height}
+                        value={state.height > 0 ? state.height: ''}
                         name="height"
                         placeholder='Please enter password'
                         onChange={onChange}
                         />
                 </label>
                 <label className="form__label">
+                    <p>Target</p>
                     <CustomSelect options={Targets} switchItem={switchTargets} text={'Выберите цель'}/>
                 </label>
                 <label className="form__label">
+                    <p>Number of days to train</p>
                     <input className='input form__input'
                         type="number"
-                        value={state.days}
+                        value={state.days > 0 ? state.days : ''}
                         name="days"
                         placeholder='Please enter password'
                         onChange={onChange}
