@@ -33,6 +33,7 @@ code {
   justify-content: center;
   flex-grow: 1;
   padding: 10px;
+  color: var(--bg-dark);
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -187,6 +188,10 @@ code {
   align-items: center;
   gap: 4px;
   font-size: 0.8rem;
+}
+
+.completed-item__time {
+
 }
 
 @media (min-width: 800px) {
