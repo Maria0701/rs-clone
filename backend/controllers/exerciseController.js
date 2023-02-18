@@ -18,9 +18,7 @@ const setExercises = asyncHandler(async (req, res) => {
         throw new Error ('Please Enter the field')
     }
 
-    const exercise = await Exercise.create({
-        name: req.body.name,        
-    })
+    const exercise = await Exercise.create(req.body)
 
     res.status(200).json(exercise);
 });

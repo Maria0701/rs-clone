@@ -14,6 +14,7 @@ export interface IClient {
     weight?: IWeight[],
     height?: Number,
     target?: string,
+    program_id?: string,
     days?:Number,
 }
 
@@ -22,9 +23,10 @@ export interface IUpdateData {
     gender?: String,
     weight2:  Number,
     height?: Number,
-    target?: String,
+    program_id?: String,
     days?: Number,
-    exersisesComleted?: []
+    exersisesComleted?: [],
+    isAuth: Boolean,
 }
 
 
@@ -69,9 +71,16 @@ export interface ICompleted {
     exercise_name:  String,
     exercise_id:  String,
     preview:  String,
-    time: Number,
+    time: number,
     user_id: string,
     date?: string,
     id?: string
 }
 
+export interface IProgram {
+    name: string
+    date?: Date,
+    img: string,
+    exersises_ids:string[],
+    id: string
+}
