@@ -5,13 +5,17 @@ const exerciseSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add a name'],
     },
-    video: {
+    url: {
         type: String,
         required: [true, 'Please Add Video'],
     },
     description: {
         type: String,
-    }
+    },
+    img: { 
+        type: String,
+    },
+    program_ids:[String],
 }, {
     timstamps: true,
 });

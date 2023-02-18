@@ -3,22 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { Wrapper } from '../components/wrappers/Wrapper';
-import { GENDERS, Targets } from '../consts/const';
+import { GENDERS } from '../consts/const';
+import { getAllPrograms } from '../features/programs/programsSlice';
 import { update } from '../features/userUpdates/userUpdatesSlice';
 import { EQuestioner, IUpdateData, UsernameFormElement } from '../models/models';
 import { formReducer, initialUpdateState } from '../reducers/updateUserReducer';
 import CustomSelect from '../ui/CustomSelect';
+import CustomSelect2 from '../ui/CustomSelect2';
 import { Loader } from '../ui/Loader';
 
 export default function Questioner() {
-
     const navigate = useNavigate();
     const dispatchApp = useAppDispatch();
+    const targets = useAppSelector((state) => state.programs.programs);
     const isUpdLoading = useAppSelector((state) => state.updateUser.isLoading);
     const isUpdError = useAppSelector((state) => state.updateUser.isError);
     const message = useAppSelector((state) => state.updateUser.message);
     const isUpdSuccess = useAppSelector((state) => state.updateUser.isSuccess)
-    const user = useAppSelector((state) => state.auth.user)
+    const user = useAppSelector((state) => state.auth.user);
+    const isProgramsSuccess = useAppSelector((state) => state.programs.isSuccess);
+
+    useEffect(()=> {
+        dispatchApp(getAllPrograms());
+    }, []);
 
     const [state, dispatch] = useReducer(formReducer , initialUpdateState);
 
@@ -38,8 +45,9 @@ export default function Questioner() {
                 gender: state.gender,
                 weight2: Number(state.weight),
                 height: Number(state.height),
-                target: state.target,
-                days: Number(state.days)
+                program_id: state.target,
+                days: Number(state.days),
+                isAuth: true
             }
             dispatchApp(update(userData));
         }
@@ -112,10 +120,15 @@ export default function Questioner() {
                         onChange={onChange}
                         />
                 </label>
-                <label className="form__label">
-                    <p>Target</p>
-                    <CustomSelect options={Targets} switchItem={switchTargets} text={'Выберите цель'}/>
-                </label>
+                {
+                    isProgramsSuccess && (
+                        <label className="form__label">
+                            <p>Target</p>
+                            <CustomSelect2 options={targets} switchItem={switchTargets} text={'Выберите цель'}/>
+                        </label>
+                    )
+                }
+                
                 <label className="form__label">
                     <p>Number of days to train</p>
                     <input className='input form__input'

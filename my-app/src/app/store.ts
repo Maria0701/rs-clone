@@ -1,14 +1,16 @@
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
 import updateUserReducer from '../features/userUpdates/userUpdatesSlice';
-import completedReducer from '../features/getCompleted/completedSlice'
-import calendarReducer from '../features/calendar/calendarSlice'
+import completedReducer from '../features/getCompleted/completedSlice';
+import calendarReducer from '../features/calendar/calendarSlice';
+import programsReducer from '../features/programs/programsSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   updateUser: updateUserReducer,
   completed: completedReducer,
   calendar: calendarReducer,
+  programs: programsReducer,
 });
 
 export const setupStore = () => {

@@ -1,4 +1,5 @@
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import axios from 'axios';
 import { IUpdateData } from '../../models/models';
 import userUpdateService from './userUpdatesService';
 
@@ -20,7 +21,18 @@ const initialState: updateUserState = {
 
 
 export const update = createAsyncThunk('user/update', async (user: IUpdateData, thunkAPI)=> {
-    return userUpdateService.update(user);
+    try {
+        return userUpdateService.update(user);
+    } catch (error: unknown) {
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }
+        
+      return thunkAPI.rejectWithValue(message)
+    }
 });
 
 

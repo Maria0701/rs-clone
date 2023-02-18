@@ -44,6 +44,10 @@ const userSchema = mongoose.Schema({
         default: Date.now,
         immutable: true
     },
+    isAuth: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timstamps: true,
 });

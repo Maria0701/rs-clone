@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
@@ -18,7 +17,7 @@ function App() {
       <Route path='/register' element={<Register />} />
       <Route path='/questioner' element={<Questioner />} />
       <Route path='/' element={<ProgramsIndex />} />
-      <Route path='/' element={<LoginPage />} />
+      {/* <Route path='/' element={<LoginPage />} /> */}
       <Route path='/programs-index' element={<ProgramsIndex />} />
       <Route path='/program' element={<ProgramPage trainings={data.trainings} />} />
       <Route path='/exercise/:id' element={<Exercise trainings={data.trainings} />} />

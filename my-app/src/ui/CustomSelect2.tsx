@@ -1,30 +1,31 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useOnClickOutside } from '../app/hooks';
+import { IProgram } from '../models/models';
 import './customSelect.css';
 interface IOptions {
-    options: string[],
+    options: IProgram[],
     switchItem: (value: string) => void,
     text: string,
 }
 
-export default function CustomSelect({options, switchItem, text}:IOptions) {
+export default function CustomSelect2({options, switchItem, text}:IOptions) {
     const [isOptionOpen, setIsOptionOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(0);
     const ref = useRef(null);
 
-    useOnClickOutside(ref, () => setIsOptionOpen(false));
-
     const toggleOptions = () => {
-        setIsOptionOpen(!isOptionOpen);
+        setIsOptionOpen(!isOptionOpen);        
     };
-
+    
+    useOnClickOutside(ref, () => setIsOptionOpen(false));
+    
     const linkClickHandler = (ind:number) => {       
         setSelectedOption(ind);               
     };
 
     useEffect(() => {
         setIsOptionOpen(false); 
-        switchItem(options[selectedOption]);       
+        switchItem(options[selectedOption].id);       
     }, [selectedOption]);
 
 
@@ -37,23 +38,23 @@ export default function CustomSelect({options, switchItem, text}:IOptions) {
                     aria-haspopup='listbox'
                     aria-expanded={isOptionOpen}
                     onClick={toggleOptions}>
-                        {options[selectedOption]}
+                        {options[selectedOption].name}
                 </button>
                 <ul 
                     className={`options ${isOptionOpen ? 'show' : ''}`}
                     role='listbox'
-                    aria-activedescendant={options[selectedOption]}
+                    aria-activedescendant={options[selectedOption].name}
                     tabIndex={-1}>
                     {
                         options.map((option, ind) => (
                             <li 
                                 className='options__li'
                                 tabIndex={0}
-                                id={option}
+                                id={option.id}
                                 aria-selected={selectedOption === ind} 
                                 key={ind}
                                 onClick={()=>linkClickHandler(ind)}                             
-                                >{option}</li>
+                                >{option.name}</li>
                         ))
                     }
                 </ul>
