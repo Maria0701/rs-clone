@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IUpdateData } from '../../models/models';
+import { RootState } from '../../app/store';
+import { IUpdateData, IClient} from '../../models/models';
 import userUpdateService from './userUpdatesService';
 
 interface updateUserState {
@@ -23,6 +24,22 @@ const initialState: updateUserState = {
 export const update = createAsyncThunk('user/update', async (user: IUpdateData, thunkAPI)=> {
     try {
         return userUpdateService.update(user);
+    } catch (error: unknown) {
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }
+        
+      return thunkAPI.rejectWithValue(message)
+    }
+});
+
+export const getFull = createAsyncThunk<IClient , void, { state: RootState}>('user/get', async (_, thunkAPI)=> {
+    try {
+        const userId = thunkAPI.getState().auth.user?._id!        
+        return userUpdateService.getFull(userId);
     } catch (error: unknown) {
         let message;
         if (axios.isAxiosError(error)) {

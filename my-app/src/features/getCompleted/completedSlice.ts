@@ -5,9 +5,14 @@ import { ICompleted } from "../../models/models";
 import completedService, { IQueryParams } from "./completedService";
 
 
-export const getCompleted = createAsyncThunk('completed/get', async (completed: IQueryParams, thunkAPI) => {
+export const getCompleted = createAsyncThunk<ICompleted[], void,{ state: RootState}>('completed/get', async (_, thunkAPI) => {
     try {
-        return completedService.getCompletedItems(completed)
+        const params:IQueryParams = {
+            endDate: thunkAPI.getState().calendar.endDate,
+            startDate: thunkAPI.getState().calendar.startDate,
+            userId: thunkAPI.getState().auth.user?._id!
+        }
+        return completedService.getCompletedItems(params)
     } catch (error: unknown) {
         let message;
         if (axios.isAxiosError(error)) {
@@ -30,12 +35,11 @@ export const setCompleted = createAsyncThunk('completed/post', async (completedD
         } else if (error instanceof Error){
             message = error.message || error.toString();
         }
-        
       return thunkAPI.rejectWithValue(message)
     }
 });
 
-export const getCompletedForDay = createAsyncThunk<ICompleted[], string,  { state: RootState}>('completed/date', async (date: string, thunkAPI) => {
+export const getCompletedForDay = createAsyncThunk<ICompleted[], string, { state: RootState}>('completed/date', async (date: string, thunkAPI) => {
     try {
         const dateInfo = {
             endDate: date,
@@ -49,8 +53,26 @@ export const getCompletedForDay = createAsyncThunk<ICompleted[], string,  { stat
             message = error.response && error.response.data && error.response.data.message;
         } else if (error instanceof Error){
             message = error.message || error.toString();
-        }
-        
+        }        
+      return thunkAPI.rejectWithValue(message)
+    }
+});
+
+export const getCompletedForWeek = createAsyncThunk<ICompleted[], IQueryParams, { state: RootState}>('completed/week', async (dateParams: IQueryParams, thunkAPI) => {
+    try {
+        // const dateInfo = {
+        //     endDate: date,
+        //     startDate: date,
+        //     userId: thunkAPI.getState().auth.user?._id!
+        // }
+        return completedService.getCompletedItems(dateParams)
+    } catch (error: unknown) {
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }        
       return thunkAPI.rejectWithValue(message)
     }
 });
@@ -58,6 +80,7 @@ export const getCompletedForDay = createAsyncThunk<ICompleted[], string,  { stat
 export interface IState {
     completedArr: ICompleted[],
     completedForDate: ICompleted[],
+    completedForWeek: ICompleted[],
     isLoading: boolean,
     isError: boolean,
     isSuccess: boolean,
@@ -67,6 +90,7 @@ export interface IState {
 const initialState: IState = {
     completedArr: [],
     completedForDate:[],
+    completedForWeek:[],
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -119,6 +143,19 @@ const completedSlice = createSlice({
                 state.completedForDate = action.payload;
             })
             .addCase(getCompletedForDay.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload as string;
+            })
+            .addCase(getCompletedForWeek.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCompletedForWeek.fulfilled, (state, action: PayloadAction<ICompleted[]>) =>  {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.completedForWeek = action.payload;
+            })
+            .addCase(getCompletedForWeek.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload as string;

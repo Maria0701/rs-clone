@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice,  PayloadAction} from '@reduxjs/toolkit';
 import { endOfToday, format, startOfToday } from "date-fns";
 
 interface IState {
@@ -8,11 +8,11 @@ interface IState {
     currentMonth: string
 }
 
-const initialState = {
+const initialState: IState = {
     startDate: startOfToday().toISOString(), 
     endDate: endOfToday().toISOString(),
     selectedDay: startOfToday().toISOString(),
-    currentMonth: format(startOfToday(), 'MMM-yyyy')
+    currentMonth: format(startOfToday(), 'MMM-yyyy'),
 }
 
 const calendarSlice = createSlice({

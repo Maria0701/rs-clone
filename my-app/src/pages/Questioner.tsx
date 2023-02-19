@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { Wrapper } from '../components/wrappers/Wrapper';
 import { GENDERS } from '../consts/const';
-import { getAllPrograms } from '../features/programs/programsSlice';
+import { getAllPrograms, resetPrograms } from '../features/programs/programsSlice';
 import { update } from '../features/userUpdates/userUpdatesSlice';
 import { EQuestioner, IUpdateData, UsernameFormElement } from '../models/models';
 import { formReducer, initialUpdateState } from '../reducers/updateUserReducer';
@@ -49,6 +49,7 @@ export default function Questioner() {
                 days: Number(state.days),
                 isAuth: true
             }
+
             dispatchApp(update(userData));
         }
     }
@@ -84,7 +85,9 @@ export default function Questioner() {
             navigate('/');
         }
 
-        //dispatch(reset());
+        return () => {
+           // dispatch(resetPrograms())
+        }
 
     }, [isUpdError, isUpdSuccess, message, navigate]);
 

@@ -3,7 +3,8 @@ const {
     getPrograms,
     setProgram,
     updateProgram,
-    deleteProgram 
+    deleteProgram,
+    getProgramsSingle
 } = require('../controllers/programController');
 const router = express.Router();
 

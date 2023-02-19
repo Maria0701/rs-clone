@@ -8,8 +8,12 @@ export function Calendar() {
     return (
         <Wrapper>
             <div className="calendar-wrapper">
-                <CalendarBlock />
-                <CompletedBlock />
+                <div>
+                    <CalendarBlock />
+                </div>
+                <div>
+                    <CompletedBlock />
+                </div>
             </div>
         </Wrapper>
     );

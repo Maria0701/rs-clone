@@ -16,21 +16,45 @@ export const getAllPrograms = createAsyncThunk('programs/getAll', async (_, thun
         
       return thunkAPI.rejectWithValue(message)
     }
-})
+});
+
+export const getsingleProgram = createAsyncThunk('programs/getOne', async (id:string, thunkAPI) => {
+    try {
+        return programsService.getOneProgram(id);
+    } catch (error: unknown) {
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }
+        
+      return thunkAPI.rejectWithValue(message)
+    }
+});
+
 
 interface programState {
     programs: IProgram[],
+    currentProgram: IProgram | null,
     isError: Boolean,
     isSuccess: Boolean,
     isLoading: Boolean,
     message: String,
+    isSingleError: Boolean,
+    isSingleSuccess: Boolean,
+    isSingleLoading: Boolean,
 }
 
 const initialState: programState = {
     programs: [],
+    currentProgram: null, 
     isError: false,
     isSuccess: false,
     isLoading: false,
+    isSingleError: false,
+    isSingleSuccess: false,
+    isSingleLoading: false,
     message: '',
 }
 
@@ -39,7 +63,9 @@ export const programSlice = createSlice({
     name: 'programs',
     initialState,
     reducers: {
-        reset: state => initialState,
+        resetPrograms: (state) => {
+            state = initialState;
+        },
     },
     extraReducers:(builder) => {
         builder
@@ -58,7 +84,22 @@ export const programSlice = createSlice({
                 state.message = action.payload as string;
                 state.programs = [];
             })
+            .addCase(getsingleProgram.pending, (state) => {
+                state.isSingleLoading = true;
+            })
+            .addCase(getsingleProgram.fulfilled, (state, action: PayloadAction<IProgram>) => {
+                state.isSingleLoading = false;
+                state.isSingleError = false;
+                state.isSingleSuccess = true;
+                state.currentProgram = action.payload;
+            })
+            .addCase(getsingleProgram.rejected, (state, action) =>{
+                state.isSingleLoading = false;
+                state.isSingleError = true;
+                state.message = action.payload as string;
+                state.programs = [];
+            })
     },
 });
-
+export const {resetPrograms} = programSlice.actions;
 export default programSlice.reducer;

@@ -8,8 +8,14 @@ const update = async(userData: IUpdateData) => {
     return response.data;
 }
 
+const getFull = async(id: string) => {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+}
+
 const userUpdateService = {
-    update
+    update,
+    getFull
 };
 
 export default userUpdateService;

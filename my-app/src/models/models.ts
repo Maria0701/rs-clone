@@ -16,17 +16,19 @@ export interface IClient {
     target?: string,
     program_id?: string,
     days?:Number,
+    registrationDate?: string,
+    isAuth:boolean
 }
 
 export interface IUpdateData {
-    id: String,
+    id?: String,
     gender?: String,
-    weight2:  Number,
+    weight2?:  Number,
     height?: Number,
     program_id?: String,
     days?: Number,
     exersisesComleted?: [],
-    isAuth: Boolean,
+    isAuth?: Boolean,
 }
 
 
@@ -37,7 +39,6 @@ export interface IRegisterData {
     password: String,
     token?: String,
 }
-
 
 export interface FormElements extends HTMLFormControlsCollection {
     usernameInput: HTMLInputElement
@@ -82,5 +83,6 @@ export interface IProgram {
     date?: Date,
     img: string,
     exersises_ids:string[],
-    id: string
+    _id: string,
+    description?: string, 
 }

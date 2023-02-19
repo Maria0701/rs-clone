@@ -8,7 +8,7 @@ interface IOptions {
     text: string,
 }
 
-export default function CustomSelect2({options, switchItem, text}:IOptions) {
+export default function CustomSelect2({options, switchItem}:IOptions) {
     const [isOptionOpen, setIsOptionOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(0);
     const ref = useRef(null);
@@ -25,7 +25,7 @@ export default function CustomSelect2({options, switchItem, text}:IOptions) {
 
     useEffect(() => {
         setIsOptionOpen(false); 
-        switchItem(options[selectedOption].id);       
+        switchItem(options[selectedOption]._id);       
     }, [selectedOption]);
 
 
@@ -50,7 +50,7 @@ export default function CustomSelect2({options, switchItem, text}:IOptions) {
                             <li 
                                 className='options__li'
                                 tabIndex={0}
-                                id={option.id}
+                                id={option._id}
                                 aria-selected={selectedOption === ind} 
                                 key={ind}
                                 onClick={()=>linkClickHandler(ind)}                             
