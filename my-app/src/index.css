@@ -218,12 +218,51 @@ code {
   text-decoration: none;
 }
 
+.index {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  gap: 20px;
+}
+
+.index-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.week-number {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 8px;
+}
+
+.week-number__text {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.week-number__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1;
+
+}
+
 @media (min-width: 800px) {
   .calendar-wrapper {
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 
   .completed-block {
+    height: 100%;
     padding-left: 20px;
     border-left:  1px solid var(--color-price-privacy);
   }

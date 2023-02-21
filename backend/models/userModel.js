@@ -47,6 +47,10 @@ const userSchema = mongoose.Schema({
     isAuth: {
         type: Boolean,
         default: false
+    },
+    program_id: {
+        type: String,
+        required: [true, 'Please choose a Program'],
     }
 }, {
     timstamps: true,

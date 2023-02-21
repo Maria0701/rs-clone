@@ -18,12 +18,8 @@ export  function DaySlot({isToday, isCurrMonth, isSelected, day, isWeekend, comp
   const dispatch = useAppDispatch();
   const chooseDay = (day: Date) => {
     dispatch(setSelectedDate(day.toISOString()));
-    if (completed > 0) {
-      dispatch(getCompletedForDay(day.toISOString()))
-    } else {
-      dispatch(clearForDay());
-    }
   };
+  
   return (
     <button 
         onClick={() => chooseDay(day)}

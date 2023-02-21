@@ -1,0 +1,63 @@
+.week {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.week__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.week__item {
+    position: relative;
+}
+
+.week__exercises {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--bg-hover);
+    background-color: var(--color-green);
+    opacity: 0.8;
+}
+
+.week__item time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    line-height: 1;
+    border-radius: 50%;    
+    color: var(--bg-dark);
+    background-color: var(--color-button);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.week__item:hover,
+.week__item:focus {
+    opacity: 0.8;
+}
+
+.week__item--current {
+    font-weight: bold;
+}
+
+.week__item--selected time {
+    background-color: var(--color-button-hover);
+}
+
+@media (min-width: 400px) {
+    .week__item time,
+    .week__item div {
+        width: 40px;
+        height: 40px;
+    }
+}

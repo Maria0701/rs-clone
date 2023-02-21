@@ -21,12 +21,39 @@ const getUsers = asyncHandler(async (req, res) => {
 // GET /api/users/me
 // Private
 const getMe = asyncHandler(async (req, res) => {
-    const {_id, name, email } = await User.findById(req.user.id);
+    const person = await User.findById(req.query.id)
+
+    if (!person) {
+        res.status(400);
+        throw new Error ('User does not exist');
+    }
+
+    const {
+        _id, 
+        name, 
+        email, 
+        role,
+        gender,
+        weight,
+        height,
+        program_id,
+        days,
+        registrationDate,
+        isAuth 
+    } = person;
 
     res.status(200).json({
         id: _id,
         name,
         email,
+        role,
+        gender,
+        weight,
+        height,
+        program_id,
+        days,
+        registrationDate,
+        isAuth,
     })
 });
 
@@ -107,13 +134,20 @@ const updateUser = asyncHandler(async (req, res) => {
         throw new Error ('user not Found');
     }
 
-    const newObj = {
-        days: req.body.days,
-        gender: req.body.gender,        
-        height: req.body.height,
-        id: req.body.id,
-        target: req.body.target,
-        $push: {weight: {value: req.body.weight2} },
+    let newObj;
+
+    if ( req.body.weight2 ) {
+        newObj = {
+            days: req.body.days,
+            gender: req.body.gender,        
+            height: req.body.height,
+            id: req.body.id,
+            program_id: req.body.program_id,
+            $push: {weight: {value: req.body.weight2} },
+            isAuth: req.body.isAuth
+        }
+    } else {
+        newObj = req.body
     }
 
     const updateduser = await User.findByIdAndUpdate(req.params.id, newObj, {

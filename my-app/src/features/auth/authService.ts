@@ -26,12 +26,22 @@ const login = async (userData: Pick<IRegisterData, 'email' | 'password'>) => {
     return response.data;
 };
 
+interface UD {
+    id: string,
+};
 
+const getMe = async (idObj: UD) => {
+    const response = await axios.get(`${API_URL}me`,  {
+        params: idObj
+      });
+    return response.data;
+};
 
 const authService = {
     register,
     logout,
     login,
+    getMe
 };
 
 export default authService;

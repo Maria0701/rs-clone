@@ -6,8 +6,16 @@ const getAllPrograms = async ()  => {
     return response.data;
 }
 
+const getOneProgram = async (id: string)  => {
+    const response = await axios.get(`${API_URL}`, {params: {
+        id: id
+    }});
+    return response.data;
+}
+
 const programsService = {
     getAllPrograms,
+    getOneProgram 
 }
 
 export default programsService;

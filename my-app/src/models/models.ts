@@ -1,32 +1,34 @@
 export interface IWeight {
-    value: Number,
+    value: number,
     date: Date
 }
 
 export interface IClient {
-    id: String,
-    name: String,
-    email: String,
-    password: String,
-    token?: String,
-    role?: Number,
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+    token?: string,
+    role?: number,
     gender?: String,
     weight?: IWeight[],
-    height?: Number,
+    height?: number,
     target?: string,
     program_id?: string,
-    days?:Number,
+    days?:number,
+    registrationDate?: string,
+    isAuth:boolean
 }
 
 export interface IUpdateData {
-    id: String,
+    id?: String,
     gender?: String,
-    weight2:  Number,
+    weight2?:  Number,
     height?: Number,
     program_id?: String,
     days?: Number,
     exersisesComleted?: [],
-    isAuth: Boolean,
+    isAuth?: Boolean,
 }
 
 
@@ -37,7 +39,6 @@ export interface IRegisterData {
     password: String,
     token?: String,
 }
-
 
 export interface FormElements extends HTMLFormControlsCollection {
     usernameInput: HTMLInputElement
@@ -82,5 +83,6 @@ export interface IProgram {
     date?: Date,
     img: string,
     exersises_ids:string[],
-    id: string
+    _id: string,
+    description?: string, 
 }

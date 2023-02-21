@@ -1,5 +1,7 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
-import { IRegisterData } from '../../models/models';
+import {createSlice, createAsyncThunk, PayloadAction, createSelector} from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import { IClient, IRegisterData } from '../../models/models';
+import { getBodyText, getWeekNumber } from '../../utils/utils';
 import authService from './authService';
 
 //get  user from localStorage
@@ -7,6 +9,7 @@ const user  = JSON.parse(localStorage.getItem('user')  as string);
 
 interface authState {
     user: IRegisterData | null,
+    me:  Omit<IClient, 'password'|'token'> | null,
     isError: Boolean,
     isSuccess: Boolean,
     isLoading: Boolean,
@@ -15,6 +18,7 @@ interface authState {
 
 const initialState: authState = {
     user: Boolean(user) ? user : null,
+    me: null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -37,6 +41,18 @@ export const register = createAsyncThunk('auth/register', async (user:IRegisterD
 export const login = createAsyncThunk('auth/login', async (user:Pick<IRegisterData, 'email' | 'password'>, thunkAPI) => {
     try {
         return authService.login(user);
+    } catch(error: unknown) {
+        if (error instanceof Error) {
+            const message =  error.message || error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
+export const getMe = createAsyncThunk<Omit<IClient, 'password'|'token'>, void,{ state: RootState}>('auth/me', async (_, thunkAPI) => {
+    try {
+        const id = thunkAPI.getState().auth.user?._id! as string;
+        return authService.getMe({id:id});
     } catch(error: unknown) {
         if (error instanceof Error) {
             const message =  error.message || error.toString();
@@ -94,9 +110,34 @@ const authSlice = createSlice({
                 state.message = action.payload as string;
                 state.user = null;
             })
+            .addCase(getMe.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getMe.fulfilled, (state, action: PayloadAction<Omit<IClient, 'password'|'token'>>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.me = action.payload
+            })
+            .addCase(getMe.rejected, (state, action) =>{
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload as string;
+                state.me = null;
+            })
+
     },
 });
 
 
 export const {reset} = authSlice.actions;
 export default authSlice.reducer;
+
+export const getMemoizedBodyIndex = createSelector(
+    (state: RootState) => state.auth.me,
+    (me) => me?.weight![me?.weight!.length - 1].value ? getBodyText(me?.height!, me?.weight![me?.weight!.length - 1].value) : 'weight or height is not inserted'
+);
+
+export const getMemoisedWeek = createSelector(
+    (state: RootState) => state.auth.me,
+    (me) => me?.registrationDate? getWeekNumber(me?.registrationDate!) : 'pass in registration date'
+);

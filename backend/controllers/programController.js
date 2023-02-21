@@ -5,8 +5,31 @@ const Program = require('../models/programsModel')
 // GET /api/program
 // Private
 const getPrograms = asyncHandler(async (req, res) => {
-    const programs  = await Program.find()
-    res.status(200).json(programs);
+    if (req.query.id) {
+        const programs  = await Program.findById(req.query.id)
+        if (!programs) {
+            res.status(400);
+            throw new Error ('The program does not exist');
+        }       
+        res.status(200).json(programs);
+    } else { 
+        const programs  = await Program.find()
+        res.status(200).json(programs);
+    }
+});
+
+// Get program
+// GET /api/program/singlr
+// Private
+const getProgramsSingle = asyncHandler(async (req, res) => {
+        const programs  = await Program.findById(req.query.id)
+        if (!req.query.id) {
+            res.status(400);
+            throw new Error ('The program does not exist');
+        }
+       
+        res.status(200).json(programs);
+
 });
 
 // Set exercise
