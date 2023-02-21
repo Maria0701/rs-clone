@@ -57,7 +57,7 @@ export const userSlice = createSlice({
     name: 'updatedUser',
     initialState,
     reducers: {
-        reset: (state) => {
+        resetUpdate: (state) => {
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = false;
@@ -85,5 +85,5 @@ export const userSlice = createSlice({
 });
 
 
-// export const {reset} = userSlice.actions;
+export const {resetUpdate} = userSlice.actions;
 export default userSlice.reducer;

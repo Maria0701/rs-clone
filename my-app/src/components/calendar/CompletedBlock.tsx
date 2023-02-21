@@ -1,8 +1,7 @@
-import { format, startOfToday} from 'date-fns';
+import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { setSelectedDate } from '../../features/calendar/calendarSlice';
-import { getCompleted, getCompletedForDay } from '../../features/getCompleted/completedSlice';
+import { getCompletedForDay } from '../../features/getCompleted/completedSlice';
 import { Loader } from '../../ui/Loader';
 import CompletedElement from './CompletedElement';
 

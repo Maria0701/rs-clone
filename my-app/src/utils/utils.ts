@@ -19,3 +19,7 @@ export const getBodyText = (height: number, weight: number) => {
     console.log(height / 100)
     return (weight / Math.pow((height / 100), 2)).toFixed(2);
 }
+
+export const getPercentage = (max: number, num: number):number => {
+    return num / max * 100;
+}
