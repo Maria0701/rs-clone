@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import Program from "../components/program/Program";
 import Week from "../components/week/Week";
@@ -6,7 +6,7 @@ import {Wrapper} from "../components/wrappers/Wrapper";
 import { getMe, getMemoisedWeek } from "../features/auth/authSlice";
 import BodyIndex from "../ui/BodyIndex";
 import { Loader } from "../ui/Loader";
-import { getWeekNumber } from "../utils/utils";
+import ProgramChooser from "../ui/ProgramChooser";
 
 export function ProgramsIndex() {
     const userFull = useAppSelector((state) => state.auth.me);
@@ -47,8 +47,7 @@ export function ProgramsIndex() {
                         ? <Loader />
                         : <BodyIndex  />
                     }
-                
-                <p>Эта страница должна быть стартовой для зарегистрированного человека</p>
+                <ProgramChooser />
             </div>
         </Wrapper>
     );
