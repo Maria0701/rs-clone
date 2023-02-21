@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import Program from "../components/program/Program";
 import Week from "../components/week/Week";
 import {Wrapper} from "../components/wrappers/Wrapper";
-import { getMe } from "../features/auth/authSlice";
+import { getMe, getMemoisedWeek } from "../features/auth/authSlice";
 import BodyIndex from "../ui/BodyIndex";
 import { Loader } from "../ui/Loader";
 import { getWeekNumber } from "../utils/utils";
@@ -11,11 +11,13 @@ import { getWeekNumber } from "../utils/utils";
 export function ProgramsIndex() {
     const userFull = useAppSelector((state) => state.auth.me);
     const dispatch = useAppDispatch();
-    const isLoading = useAppSelector((state) => state.auth.isLoading)
-
+    const weekNumber = useAppSelector(getMemoisedWeek);
+    const isLoading = useAppSelector((state) => state.auth.isLoading);
+    const isSuccess = useAppSelector((state) => state.auth.isSuccess)
     useEffect(() => {
-        dispatch(getMe())
+        dispatch(getMe());        
     }, []);
+
 
     return (
         <Wrapper>
@@ -26,8 +28,8 @@ export function ProgramsIndex() {
                             isLoading 
                             ?   <Loader />
                             :   <>
-                                <p className="week-number__text">Week №</p>
-                                <div className="week-number__number">{getWeekNumber(userFull?.registrationDate!)}</div>
+                                    <p className="week-number__text">Week №</p>
+                                    <div className="week-number__number">{weekNumber}</div>
                                 </> 
                         }                    
                     </div>
@@ -43,7 +45,7 @@ export function ProgramsIndex() {
                     {
                         isLoading 
                         ? <Loader />
-                        : <BodyIndex weight={userFull?.weight![userFull?.weight!.length - 1].value!} height={userFull?.height!} />
+                        : <BodyIndex  />
                     }
                 
                 <p>Эта страница должна быть стартовой для зарегистрированного человека</p>

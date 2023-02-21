@@ -14,3 +14,8 @@ export const getWeekNumber = (initialDate: string) => {
     const currDate = new Date();
     return differenceInWeeks(currDate, new Date(initialDate)) + 1;
 }
+
+export const getBodyText = (height: number, weight: number) => {
+    console.log(height / 100)
+    return (weight / Math.pow((height / 100), 2)).toFixed(2);
+}

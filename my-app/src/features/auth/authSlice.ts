@@ -1,6 +1,7 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk, PayloadAction, createSelector} from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { IClient, IRegisterData } from '../../models/models';
+import { getBodyText, getWeekNumber } from '../../utils/utils';
 import authService from './authService';
 
 //get  user from localStorage
@@ -130,3 +131,13 @@ const authSlice = createSlice({
 
 export const {reset} = authSlice.actions;
 export default authSlice.reducer;
+
+export const getMemoizedBodyIndex = createSelector(
+    (state: RootState) => state.auth.me,
+    (me) => me?.weight![me?.weight!.length - 1].value ? getBodyText(me?.height!, me?.weight![me?.weight!.length - 1].value) : 'weight or height is not inserted'
+);
+
+export const getMemoisedWeek = createSelector(
+    (state: RootState) => state.auth.me,
+    (me) => me?.registrationDate? getWeekNumber(me?.registrationDate!) : 'pass in registration date'
+);

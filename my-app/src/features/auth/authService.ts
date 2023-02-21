@@ -30,11 +30,9 @@ interface UD {
     id: string,
 };
 
-const getMe = async (id: UD) => {
+const getMe = async (idObj: UD) => {
     const response = await axios.get(`${API_URL}me`,  {
-        params: {
-          id: "63f0eb56759f4f81cd1a2485"
-        }
+        params: idObj
       });
     return response.data;
 };

@@ -1,21 +1,21 @@
 export interface IWeight {
-    value: Number,
+    value: number,
     date: Date
 }
 
 export interface IClient {
-    id: String,
-    name: String,
-    email: String,
-    password: String,
-    token?: String,
-    role?: Number,
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+    token?: string,
+    role?: number,
     gender?: String,
     weight?: IWeight[],
-    height?: Number,
+    height?: number,
     target?: string,
     program_id?: string,
-    days?:Number,
+    days?:number,
     registrationDate?: string,
     isAuth:boolean
 }
