@@ -85,7 +85,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         email,
-        password: hashedPassword,        
+        password: hashedPassword,
     });
 
     if (user) {
@@ -118,6 +118,7 @@ const loginUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             token: generateToken(user._id),
+            role: user.role
         });
     } else {
         res.status(400);
