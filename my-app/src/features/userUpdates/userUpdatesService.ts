@@ -4,6 +4,7 @@ import {   IUpdateData } from "../../models/models";
 const API_URL = '/api/users/';
 
 const update = async(userData: IUpdateData) => {
+    console.log(userData, 2)
     const response = await axios.put(`${API_URL}/${userData.id}`, userData);
     return response.data;
 }

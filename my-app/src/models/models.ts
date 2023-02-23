@@ -66,6 +66,15 @@ export interface ITrainings {
   trainings: ITraining[]
 }
 
+export interface IExercise {
+    _id :string,
+    name: string,
+    url: string,
+    description: string,
+    img: string,
+    program_ids: string[],
+}
+
 export interface ICompleted {
     program_name: String,
     program_id:  String,

@@ -26,6 +26,9 @@
   <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" id="pause">
     <path d="M6 4h3v14H6V4m7 14V4h3v14h-3Z" fill="currentColor"></path>
   </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 430.145 430.145" id="pencil">
+    <path d="m226.623 94.279 109.242 109.242-205.937 205.877L20.686 300.217 226.623 94.279zM54.591 375.493 0 320.903l1.408 97.92c.062 4.773 5.141 9.853 9.915 9.914l97.92 1.407-.795-.795-53.857-53.856zm192.78-301.9 109.18 109.181 14.322-14.259 2.264-2.326L263.955 57.008l-16.584 16.585zm179.193 21.91L334.643 3.581c-4.773-4.773-12.547-4.773-17.32 0l-35.557 35.557 109.18 109.242 35.619-35.557c4.773-4.774 4.773-12.547-.001-17.32z"></path>
+  </symbol>
   <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="play">
     <path d="M8 6v12l10-6L8 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
   </symbol>

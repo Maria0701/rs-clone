@@ -5,11 +5,8 @@ import { getMemoizedBodyIndex } from "../features/auth/authSlice"
 import { getPercentage } from "../utils/utils";
 import './body-index.css'
 
-interface IBodyIndex {
 
-}
-
-export default function BodyIndex({}: IBodyIndex) {
+export default function BodyIndex() {
     const [percents, setPercents] = useState(0)
     const bodyIndex = useAppSelector(getMemoizedBodyIndex);
     

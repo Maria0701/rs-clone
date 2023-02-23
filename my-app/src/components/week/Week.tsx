@@ -4,10 +4,13 @@ import { SvgElt } from '../../ui/SvgElt'
 import { useState, useEffect } from 'react'
 import './week.css';
 import { IQueryParams } from '../../features/getCompleted/completedService';
-import { getCompleted, getCompletedForWeek } from '../../features/getCompleted/completedSlice';
+import { getCompletedForWeek } from '../../features/getCompleted/completedSlice';
 import { getExersisesForDate } from '../../utils/utils';
+import Modal from '../../ui/Modal';
+import CompletedBlock from '../calendar/CompletedBlock';
 
 export default function Week() {
+    const [modalState, setModalState] = useState(false);
     const dispatch = useAppDispatch();
     let today = startOfToday();
     let user = useAppSelector((state) => state.auth.user);
@@ -37,8 +40,17 @@ export default function Week() {
         setCurrentWeek(addDays(currentDay, 7));
     }
 
-    const changeSelected = (day: Date) => {
+    const changeSelected = (day: Date, hasEx: number) => {
         setSelectedDate(day);
+
+        if (Boolean(hasEx)) {
+            console.log(modalState)
+            setModalState(true);
+        }
+    }
+
+    const handleClose = () => {
+        setModalState(false);
     }
 
     return (
@@ -49,7 +61,7 @@ export default function Week() {
                     days.map((day) => (
                         <button 
                             key={day.toString()}
-                            onClick={() => changeSelected(day)}
+                            onClick={() => changeSelected(day, getExersisesForDate(day, completed))}
                             className={`btn week__item 
                             ${isToday(day) ? 'week__item--current' : ''}
                             ${isEqual(day, new Date(selectedDay))? 'week__item--selected' : ''}`
@@ -67,6 +79,12 @@ export default function Week() {
             <button className="btn" onClick={nextWeek}>
                 <SvgElt width={16} height={16} name={'chevronright'} />
             </button>
+
+            <Modal isOpen={modalState} closeHandler={handleClose}>
+                <>
+                    {modalState && <CompletedBlock activeDate={selectedDay.toString()} />}
+                </>
+            </Modal>  
         </div>
     )
 }
