@@ -1,4 +1,5 @@
 import {createSlice, createAsyncThunk, PayloadAction, createSelector} from '@reduxjs/toolkit';
+import axios from 'axios';
 import { RootState } from '../../app/store';
 import { IClient, IRegisterData } from '../../models/models';
 import { getBodyText, getWeekNumber } from '../../utils/utils';
@@ -54,10 +55,13 @@ export const getMe = createAsyncThunk<Omit<IClient, 'password'|'token'>, void,{ 
         const id = thunkAPI.getState().auth.user?._id! as string;
         return authService.getMe({id:id});
     } catch(error: unknown) {
-        if (error instanceof Error) {
-            const message =  error.message || error.toString();
-            return thunkAPI.rejectWithValue(message);
-        }
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }        
+      return thunkAPI.rejectWithValue(message)
     }
 });
 

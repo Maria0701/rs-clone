@@ -50,7 +50,10 @@ const userSchema = mongoose.Schema({
     },
     program_id: {
         type: String,
-        required: [true, 'Please choose a Program'],
+    },
+    role: {
+        type: Number,
+        default: 0
     }
 }, {
     timstamps: true,

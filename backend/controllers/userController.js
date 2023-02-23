@@ -94,6 +94,7 @@ const registerUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             token: generateToken(user._id),
+            role: user.role
         });
     } else {
         res.status(400);
@@ -136,6 +137,8 @@ const updateUser = asyncHandler(async (req, res) => {
 
     let newObj;
 
+    console.log(req.body);
+
     if ( Object.keys(req.body).length === 7) {
         newObj = {
             days: req.body.days,
@@ -146,7 +149,7 @@ const updateUser = asyncHandler(async (req, res) => {
             $push: {weight: {value: req.body.weight2} },
             isAuth: req.body.isAuth
         }
-    } else if (req.body.weight2) {
+    } else if (req.body.weight2 && Object.keys(req.body).length === 2) {
         newObj = {
             id: req.body.id,
             $push: {weight: {value: req.body.weight2} },

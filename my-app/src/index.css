@@ -27,10 +27,13 @@ code {
   text-transform: uppercase;
 }
 
-.footer__line {
-  display: flex;
+.footer {
   background-color: var(--white);
   box-shadow: 0px 2px 16px -4px rgba(58, 53, 65, 0.2);
+}
+
+.footer__line {
+  display: flex;
 }
 
 .footer__link {
@@ -351,4 +354,11 @@ code {
 
 .personal-wrapper__row .input {
   border: 0
+}
+
+.program-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-block: 20px;
 }

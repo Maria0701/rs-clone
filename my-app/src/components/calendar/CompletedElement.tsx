@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+import { useNavigate } from 'react-router-dom'
 import { ICompleted } from '../../models/models'
 import { SvgElt } from '../../ui/SvgElt'
 import { secsToMins } from '../../utils/utils'
@@ -8,6 +9,10 @@ interface ICompletedelement {
 }
 
 export default function CompletedElement({element}:ICompletedelement ) {
+    const navigate = useNavigate();
+    const goToExercise = () => {
+        navigate(`/exercise/${element.id}`)
+    }
   return (
     <div className='completed-item'>
         <div className='completed-item__img'>
@@ -23,7 +28,7 @@ export default function CompletedElement({element}:ICompletedelement ) {
                 <SvgElt width={16} height={16} name={'time'} />
                 <>{secsToMins(element.time)}</>                
             </div>
-            <a className='completed-item__link' href="#">Повторить</a>
+            <button className='completed-item__link btn' onClick={goToExercise}>Повторить</button>
         </div>
     </div>
   )

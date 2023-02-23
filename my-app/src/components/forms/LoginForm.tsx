@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -14,23 +14,22 @@ export function LoginForm() {
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const user = useAppSelector((state) => state.auth.user);
     const isLoading = useAppSelector((state) => state.auth.isLoading);
     const isError = useAppSelector((state) => state.auth.isError);
     const isSuccess = useAppSelector((state) => state.auth.isSuccess);
     const message = useAppSelector((state) => state.auth.message);
-
     const { email, password } = formData;
-
+    const from = location?.state?.from?.pathname || '/';
 
     useEffect(() => {
         if (isError) {
             toast.error(message);
         }
         if (isSuccess || user) {
-            navigate('/');
+            navigate(from, {replace: true});           
         }
-
         dispatch(reset());
 
     }, [user, isError, isSuccess, message, navigate, dispatch]);

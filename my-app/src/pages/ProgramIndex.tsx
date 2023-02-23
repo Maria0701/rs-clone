@@ -20,7 +20,8 @@ export function ProgramsIndex() {
 
 
     return (
-        <Wrapper>
+        <Wrapper>{
+            isSuccess &&
             <div className='index'>
                 <div className="index-top">
                     <div className="week-number">
@@ -48,7 +49,7 @@ export function ProgramsIndex() {
                         : <BodyIndex  />
                     }
                 <ProgramChooser />
-            </div>
+            </div>}
         </Wrapper>
     );
 };

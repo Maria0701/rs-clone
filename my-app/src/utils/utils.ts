@@ -16,7 +16,6 @@ export const getWeekNumber = (initialDate: string) => {
 }
 
 export const getBodyText = (height: number, weight: number) => {
-    console.log(height / 100)
     return (weight / Math.pow((height / 100), 2)).toFixed(2);
 }
 
