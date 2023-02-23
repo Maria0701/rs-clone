@@ -1,3 +1,7 @@
+.program {
+    height: 300px;
+}
+
 .program__wrapper {
     position: relative;
     display: flex;

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { MENU_ARRAY } from "../../consts/const"
 import { SvgElt } from '../../ui/SvgElt';
 
@@ -9,9 +9,9 @@ export function Footer() {
         <div className='container'>
             <div className='footer__line'>
                 {MENU_ARRAY.map((item) => (
-                    <Link to={item.link} className="footer__link" key={item.link}>
+                    <NavLink to={item.link} className="footer__link" key={item.link}>
                         <SvgElt width={40} height={40} name={item.icon} />
-                    </Link>
+                    </NavLink>
                 ))}
             </div>
         </div>

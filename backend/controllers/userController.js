@@ -136,7 +136,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     let newObj;
 
-    if ( req.body.weight2 ) {
+    if ( Object.keys(req.body).length === 7) {
         newObj = {
             days: req.body.days,
             gender: req.body.gender,        
@@ -146,9 +146,16 @@ const updateUser = asyncHandler(async (req, res) => {
             $push: {weight: {value: req.body.weight2} },
             isAuth: req.body.isAuth
         }
+    } else if (req.body.weight2) {
+        newObj = {
+            id: req.body.id,
+            $push: {weight: {value: req.body.weight2} },
+        }
     } else {
         newObj = req.body
     }
+
+    console.log(newObj)
 
     const updateduser = await User.findByIdAndUpdate(req.params.id, newObj, {
         new: true

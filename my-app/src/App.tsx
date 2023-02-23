@@ -19,8 +19,8 @@ function App() {
       <Route path='/' element={<ProgramsIndex />} />
       {/* <Route path='/' element={<LoginPage />} /> */}
       <Route path='/programs-index' element={<ProgramsIndex />} />
-      <Route path='/program' element={<ProgramPage trainings={data.trainings} />} />
-      <Route path='/exercise/:id' element={<Exercise trainings={data.trainings} />} />
+      <Route path='/program' element={<ProgramPage />} />
+      <Route path='/exercise/:id' element={<Exercise />} />
       <Route path='/personal' element={<PersonalPage />} />
       <Route path='/calendar' element={<Calendar />} />
     </Routes>

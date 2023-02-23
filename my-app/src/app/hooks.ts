@@ -26,10 +26,6 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
 
 }
 
-
-
-
-
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect
   // MediaQueryList Event based useEventListener interface
@@ -113,4 +109,12 @@ function useEventListener<K extends keyof MediaQueryListEventMap>(
     }, [eventName, element, options])
   
   }
+
+export function usePrevious(value: number | undefined) {
+    const ref = useRef<number | undefined>();
+    useEffect(() => {
+      ref.current = value; //assign the value of ref to the argument
+    },[value]); //this code will run when the value of 'value' changes
+    return ref.current; //in the end, return the current ref value.
+}
 

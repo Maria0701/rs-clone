@@ -2,7 +2,6 @@ import { format } from 'date-fns';
 import { ReactNode } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { setSelectedDate } from '../../features/calendar/calendarSlice';
-import { clearForDay, getCompletedForDay } from '../../features/getCompleted/completedSlice';
 
 interface IDaySlot {
     isToday: boolean,

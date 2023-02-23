@@ -64,8 +64,11 @@ export const programSlice = createSlice({
     initialState,
     reducers: {
         resetPrograms: (state) => {
-            state = initialState;
-        },
+            state.isLoading = false;
+            state.isError = false;
+            state.isSuccess = false;
+            state.message = '';
+        }
     },
     extraReducers:(builder) => {
         builder

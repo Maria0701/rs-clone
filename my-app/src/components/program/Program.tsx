@@ -25,11 +25,10 @@ export default function Program({programId}: IProgram) {
         return <ProgramChooser />
     }
 
-    if (isLoading) {
-        return <Loader />
-    }
-
     return (
+    <>
+        {isLoading && <Loader />}
         <ProgramTemplate program={programElt!} />
+    </>        
     )
 }

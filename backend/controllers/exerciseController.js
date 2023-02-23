@@ -5,9 +5,28 @@ const Exercise = require('../models/exerciseModel')
 // GET /api/exercises
 // Private
 const getExercises = asyncHandler(async (req, res) => {
-    const exercises  = await Exercise.find()
-    res.status(200).json(exercises);
+    if (req.query.program_ids) {
+        const exercises  = await Exercise.find({program_ids: {$eq: req.query.program_ids}})
+        res.status(200).json(exercises);
+    } else {
+        const exercises  = await Exercise.find()
+        res.status(200).json(exercises);
+    }
 });
+
+// Get exercises
+// GET /api/exercises/:id
+// Private
+const getExercise = asyncHandler(async (req, res) => {
+    const exercise = await Exercise.findById(req.params.id);
+
+    if (!exercise)  {
+        res.status(400);
+        throw new Error ('Exercise not Found');
+    }
+   res.status(200).json(exercise);
+});
+
 
 // Set exercise
 // POST /api/exercises
@@ -61,5 +80,6 @@ module.exports = {
     getExercises,
     setExercises,
     updateExercise,
-    deleteExercise
+    deleteExercise,
+    getExercise
 };

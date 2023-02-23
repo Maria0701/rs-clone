@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { Wrapper } from '../components/wrappers/Wrapper';
 import { GENDERS } from '../consts/const';
-import { getAllPrograms, resetPrograms } from '../features/programs/programsSlice';
+import { getAllPrograms } from '../features/programs/programsSlice';
 import { update } from '../features/userUpdates/userUpdatesSlice';
 import { EQuestioner, IUpdateData, UsernameFormElement } from '../models/models';
 import { formReducer, initialUpdateState } from '../reducers/updateUserReducer';
@@ -37,7 +37,6 @@ export default function Questioner() {
         } else if (state.height! > 200 || state.height! < 100) {
             toast.error('The Height should be higher, then 100 and lower then 200')
         } else if (state.days! > 7 || state.days! < 1) {
-            console.log(state.days)
             toast.error('The number of days should be between1 and 7')
         } else{
             const userData:IUpdateData = {
@@ -56,8 +55,8 @@ export default function Questioner() {
    
 
     const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name === 'weight' && (parseInt(e.target.value) > 150 || parseInt(e.target.value) < 40) ) {
-            toast.error('The Weight should be higher, then 40 and lower then 150')
+        if (e.target.name === 'weight' && (parseInt(e.target.value) > 200 || parseInt(e.target.value) < 40) ) {
+            toast.error('The Weight should be higher, then 40 and lower then 200')
         }
         if (e.target.name === 'height' && (parseInt(e.target.value) > 200 || parseInt(e.target.value) < 100) ) {
             toast.error('The Height should be higher, then 100 and lower then 200')
@@ -85,9 +84,6 @@ export default function Questioner() {
             navigate('/');
         }
 
-        return () => {
-           // dispatch(resetPrograms())
-        }
 
     }, [isUpdError, isUpdSuccess, message, navigate]);
 

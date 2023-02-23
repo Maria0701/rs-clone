@@ -60,7 +60,7 @@ code {
   background-color: rgba(48,172,144,0.2);
 }
 
-.footer__link--active {
+.footer__link.active {
   background-color: rgba(0,118,168,0.2);
 }
 
@@ -154,6 +154,7 @@ code {
   grid-template-columns: minmax(0, 1fr);
   align-content: flex-start;
   gap: 20px;
+  padding-block: 20px;
 }
 
 
@@ -303,6 +304,11 @@ code {
   text-align: center;
 }
 
+.popup__content .completed-block {
+  padding: 0;
+  border-left: 0;
+}
+
 .btns {
   display: flex;
   gap: 20px;
@@ -325,4 +331,24 @@ code {
 
 .btn--yes:nth-child(2) {
   background-color: var(--color-button-hover);
+}
+
+.program {
+  height: 300px;
+}
+
+.personal-wrapper__row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.personal-wrapper__row:not(:last-child) {
+  border-bottom: 1px solid gray;
+}
+
+.personal-wrapper__row .input {
+  border: 0
 }
