@@ -22,12 +22,12 @@ export function LoginForm() {
     const message = useAppSelector((state) => state.auth.message);
     const { email, password } = formData;
     const from = location?.state?.from?.pathname || '/';
-
+    console.log(from);
     useEffect(() => {
         if (isError) {
             toast.error(message);
         }
-        if (isSuccess || user) {
+        if (isSuccess) {
             navigate(from, {replace: true});           
         }
         dispatch(reset());

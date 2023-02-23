@@ -143,5 +143,10 @@ export const getMemoizedBodyIndex = createSelector(
 
 export const getMemoisedWeek = createSelector(
     (state: RootState) => state.auth.me,
-    (me) => me?.registrationDate? getWeekNumber(me?.registrationDate!) : 'pass in registration date'
+    (me) => me?.registrationDate ? getWeekNumber(me?.registrationDate!) : 'pass in registration date'
 );
+
+export const getMemoizedLatest = createSelector(
+    (state: RootState) => state.auth.me,
+    (me) => me?.weight![me?.weight!.length - 1].value
+)
