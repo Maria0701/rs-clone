@@ -84,6 +84,8 @@ export interface IState {
     isLoading: boolean,
     isError: boolean,
     isSuccess: boolean,
+    isLoadingDay: boolean,
+    isSuccessDay: boolean,
     message: string,
 }
 
@@ -94,6 +96,8 @@ const initialState: IState = {
     isLoading: false,
     isError: false,
     isSuccess: false,
+    isLoadingDay: false,
+    isSuccessDay: false,
     message: '',
 }
 
@@ -104,6 +108,11 @@ const completedSlice = createSlice({
         reset: (state) => initialState,
         clearForDay:(state) => {
             state.completedForDate = []
+        },
+        resetForDay:(state) => {
+            state.isLoadingDay = false;
+            state.isSuccessDay = false;
+            state.message = '';
         }
     },
     extraReducers:(builder) => {
@@ -135,15 +144,16 @@ const completedSlice = createSlice({
                 state.message = action.payload as string;
             })
             .addCase(getCompletedForDay.pending, (state) => {
-                state.isLoading = true;
+                state.isLoadingDay = true;
             })
             .addCase(getCompletedForDay.fulfilled, (state, action: PayloadAction<ICompleted[]>) =>  {
-                state.isLoading = false;
-                state.isSuccess = true;
+                state.isLoadingDay = false;
+                state.isSuccessDay = true;
+                state.isSuccessDay = false;
                 state.completedForDate = action.payload;
             })
             .addCase(getCompletedForDay.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isLoadingDay = false;
                 state.isError = true;
                 state.message = action.payload as string;
             })
@@ -163,5 +173,5 @@ const completedSlice = createSlice({
     }
 });
 
-export const {reset, clearForDay} = completedSlice.actions;
+export const {reset, clearForDay, resetForDay} = completedSlice.actions;
 export default completedSlice.reducer;

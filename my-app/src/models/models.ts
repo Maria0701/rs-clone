@@ -34,10 +34,11 @@ export interface IUpdateData {
 
 export interface IRegisterData {
     _id?: string
-    name: String,
-    email: String,
-    password: String,
-    token?: String,
+    name: string,
+    email: string,
+    password: string,
+    token?: string,
+    role?: number
 }
 
 export interface FormElements extends HTMLFormControlsCollection {

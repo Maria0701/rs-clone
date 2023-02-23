@@ -5,6 +5,7 @@ import { exercisesAPI } from '../features/exercises/exercisesService';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getMe } from '../features/auth/authSlice';
 import { Loader } from '../ui/Loader';
+import ExerciseTemplate from '../components/exercise/ExerciseTemplate';
 
 
 
@@ -23,23 +24,27 @@ export const ProgramPage: FC = () => {
     return () => {
 
     }
-  }, [])
+  }, []);
+
+  const moveToPage = (id: string) => {
+    navigate(`/exercise/${id}`)
+  }
   
 
   return (
     <Wrapper>
+      <div className='program-page'>
         {isLoading && <Loader />}
         {exercisesLoading && <Loader />}
         {error && <p>Something went wrong</p>}
         {
           Boolean(userFull)  && <div className="program__items">
             {isSuccess && exercises!.map((training) =>
-              <div className="program__item" key={training._id} onClick={() => navigate(`/exercise/${training._id}`)}>
-                {training.name}
-              </div>
+              <ExerciseTemplate exercise={training} key={training._id} moveToPage={moveToPage} />
             )}
           </div>
         }
+      </div>
     </Wrapper>
   )
 };

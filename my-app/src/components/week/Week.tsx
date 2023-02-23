@@ -44,7 +44,6 @@ export default function Week() {
         setSelectedDate(day);
 
         if (Boolean(hasEx)) {
-            console.log(modalState)
             setModalState(true);
         }
     }

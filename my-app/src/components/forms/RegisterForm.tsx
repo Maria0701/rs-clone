@@ -30,12 +30,15 @@ export function RegisterForm() {
     useEffect(() => {
         if (isError) {
             toast.error(message);
-        }
-        if (isSuccess) {
-            navigate('/questioner');
+            dispatch(reset());
         }
 
-        dispatch(reset());
+        if (isSuccess) {
+            navigate('/questioner');
+            dispatch(reset());
+        }
+
+      
 
     }, [user, isError, isSuccess, message, navigate, dispatch]);
 
