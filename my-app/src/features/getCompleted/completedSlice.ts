@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios  from "axios";
 import { RootState } from "../../app/store";
-import { ICompleted } from "../../models/models";
+import { ICompleted, IForToday } from "../../models/models";
 import completedService, { IQueryParams } from "./completedService";
 
 
@@ -41,7 +41,7 @@ export const setCompleted = createAsyncThunk('completed/post', async (completedD
 
 export const getCompletedForDay = createAsyncThunk<ICompleted[], string, { state: RootState}>('completed/date', async (date: string, thunkAPI) => {
     try {
-        const dateInfo = {
+        const dateInfo:IQueryParams = {
             endDate: date,
             startDate: date,
             userId: thunkAPI.getState().auth.user?._id!
@@ -60,12 +60,39 @@ export const getCompletedForDay = createAsyncThunk<ICompleted[], string, { state
 
 export const getCompletedForWeek = createAsyncThunk<ICompleted[], IQueryParams, { state: RootState}>('completed/week', async (dateParams: IQueryParams, thunkAPI) => {
     try {
-        // const dateInfo = {
-        //     endDate: date,
-        //     startDate: date,
-        //     userId: thunkAPI.getState().auth.user?._id!
-        // }
         return completedService.getCompletedItems(dateParams)
+    } catch (error: unknown) {
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }        
+      return thunkAPI.rejectWithValue(message)
+    }
+});
+
+export const updateCompleted = createAsyncThunk('completed/update', async (info:Pick<ICompleted, 'id'| 'time'>, thunkAPI) => {
+    try {
+        return completedService.updateCompleted(info)
+    } catch (error: unknown) {
+        let message;
+        if (axios.isAxiosError(error)) {
+            message = error.response && error.response.data && error.response.data.message;
+        } else if (error instanceof Error){
+            message = error.message || error.toString();
+        }        
+      return thunkAPI.rejectWithValue(message)
+    }
+});
+
+export const getCompletedToday = createAsyncThunk('completed/today', async ({user_id, exercise_id}:IForToday, thunkAPI) => {
+    try {
+        const dateInfo:IForToday = {
+            user_id,
+            exercise_id
+        }
+        return completedService.getCompletedToday(dateInfo)
     } catch (error: unknown) {
         let message;
         if (axios.isAxiosError(error)) {
@@ -81,6 +108,7 @@ export interface IState {
     completedArr: ICompleted[],
     completedForDate: ICompleted[],
     completedForWeek: ICompleted[],
+    completedItem: ICompleted | null,
     isLoading: boolean,
     isError: boolean,
     isSuccess: boolean,
@@ -93,6 +121,7 @@ const initialState: IState = {
     completedArr: [],
     completedForDate:[],
     completedForWeek:[],
+    completedItem: null,
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -113,6 +142,11 @@ const completedSlice = createSlice({
             state.isLoadingDay = false;
             state.isSuccessDay = false;
             state.message = '';
+        },
+        resetUpload:(state) => {
+            state.isLoading = false;
+            state.isError = false;
+            state.isSuccess = false;
         }
     },
     extraReducers:(builder) => {
@@ -149,7 +183,7 @@ const completedSlice = createSlice({
             .addCase(getCompletedForDay.fulfilled, (state, action: PayloadAction<ICompleted[]>) =>  {
                 state.isLoadingDay = false;
                 state.isSuccessDay = true;
-                state.isSuccessDay = false;
+                state.isError = false;
                 state.completedForDate = action.payload;
             })
             .addCase(getCompletedForDay.rejected, (state, action) => {
@@ -170,8 +204,25 @@ const completedSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload as string;
             })
+            .addCase(updateCompleted.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateCompleted.fulfilled, (state, action: PayloadAction<ICompleted>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.completedItem = action.payload;
+            })
+            .addCase(updateCompleted.rejected, (state, action) => {
+                state.isLoadingDay = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.payload as string;
+            })
+            .addCase(getCompletedToday.fulfilled, (state, action: PayloadAction<ICompleted>) => {
+                state.completedItem = action.payload;
+            })
     }
 });
 
-export const {reset, clearForDay, resetForDay} = completedSlice.actions;
+export const {reset, clearForDay, resetForDay, resetUpload} = completedSlice.actions;
 export default completedSlice.reducer;

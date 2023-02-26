@@ -21,8 +21,7 @@ const getUsers = asyncHandler(async (req, res) => {
 // GET /api/users/me
 // Private
 const getMe = asyncHandler(async (req, res) => {
-    const person = await User.findById(req.query.id)
-
+    const person = await User.findById(req.query.id).lean()
     if (!person) {
         res.status(400);
         throw new Error ('User does not exist');
@@ -138,8 +137,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
     let newObj;
 
-    console.log(req.body);
-
     if ( Object.keys(req.body).length === 7) {
         newObj = {
             days: req.body.days,
@@ -158,8 +155,6 @@ const updateUser = asyncHandler(async (req, res) => {
     } else {
         newObj = req.body
     }
-
-    console.log(newObj)
 
     const updateduser = await User.findByIdAndUpdate(req.params.id, newObj, {
         new: true

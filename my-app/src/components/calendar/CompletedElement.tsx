@@ -10,8 +10,9 @@ interface ICompletedelement {
 
 export default function CompletedElement({element}:ICompletedelement ) {
     const navigate = useNavigate();
+
     const goToExercise = () => {
-        navigate(`/exercise/${element.id}`)
+        navigate(`/exercise/${element.exercise_id}`)
     }
   return (
     <div className='completed-item'>

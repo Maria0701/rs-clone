@@ -42,11 +42,10 @@ export function PersonalPage() {
                 data: fullUser?.weight!.map((data) => data.value)!,
             }]
         });
-        console.log(weightData, lastWeight)
+
         
     }, [lastWeight, isUpdateSuccess, isSuccess]);
-
-
+  
     const weightHandler = (data: IUpdateData) => {
         dispatch(update({...data, ...{id:user?._id}}));
 

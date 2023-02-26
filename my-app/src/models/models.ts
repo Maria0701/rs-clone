@@ -77,15 +77,16 @@ export interface IExercise {
 }
 
 export interface ICompleted {
-    program_name: String,
-    program_id:  String,
-    exercise_name:  String,
-    exercise_id:  String,
-    preview:  String,
+    program_name: string,
+    program_id:  string,
+    exercise_name:  string,
+    exercise_id:  string,
+    preview:  string,
     time: number,
     user_id: string,
     date?: string,
-    id?: string
+    id?: string,
+    _id?: string
 }
 
 export interface IProgram {
@@ -95,4 +96,9 @@ export interface IProgram {
     exersises_ids:string[],
     _id: string,
     description?: string, 
+}
+
+export interface IForToday {
+    user_id: string,
+    exercise_id: string
 }

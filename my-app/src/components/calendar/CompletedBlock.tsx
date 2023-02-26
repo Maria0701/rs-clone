@@ -26,16 +26,23 @@ export default function CompletedBlock({activeDate}: ICompletedBlock ) {
         }
     },[activeDate]);
 
+    let content;
+
+    if (isLoading) {
+        content = <Loader />
+    } else if (isError) {
+        content = <p>Something went wrong</p>
+    } else if (isSuccess){
+        content = completed.length > 0 
+            ? completed.map((item) => <CompletedElement element={item} key={item.id}/> )
+            : <p>You Did not exercise that day</p>
+    }
+
     return (
         <div className='completed-block'>
             <h1 className='h1'>Exercises completed on {format(new Date(activeDate),'dd.MM')}</h1>
             <div className='completed-items'>
-                {isError && <p>Something went wrong</p>}
-                {isLoading && <Loader />}
-                {    completed.length > 0 
-                    ? completed.map((item) => <CompletedElement element={item} key={item.id}/> )
-                    : <p>You Did not exercise that day</p>
-                }         
+                {content}   
             </div>
         </div>
     )

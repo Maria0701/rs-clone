@@ -10,7 +10,7 @@ export function Wrapper({children}: IWrapper) {
   return (
     <>
         <Header />
-            <main className="justify-center">
+            <main className="">
                 <div className="container">
                     {children}
                 </div>

@@ -337,7 +337,18 @@ code {
 }
 
 .program {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 300px;
+
+}
+
+.program__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .personal-wrapper__row {
@@ -361,4 +372,53 @@ code {
   flex-direction: column;
   gap: 20px;
   padding-block: 20px;
+}
+
+.exercise  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding-block: 20px;
+}
+
+.exercise__btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn--play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--white);
+  background-color: var(--color-button);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn--play:hover,
+.btn--play:focus {
+  background-color: var(--bg-hover);
+}
+
+.exercise__player {
+  width: 100%;
+  aspect-ratio: 640/ 390;
+  background-color: gray;
+}
+
+.exercise__player div {
+  width: 100%;
+  height: 100%;
+}
+
+.exercise__player iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
 }

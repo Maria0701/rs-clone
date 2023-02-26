@@ -24,8 +24,29 @@ const getCompleted = asyncHandler(async (req, res) => {
         user_id: userId
     });
     res.status(200).json(completed);
-
 });
+
+const getCompletedExForDay  = asyncHandler(async (req, res) => {
+    const userId = req.query.user_id;
+
+    if(!userId) {
+        return res.status(404).json({
+         status:'failure',
+         message:'Login? please'
+        })
+    }
+
+    const completed = await Completed.findOne({ 
+        date: {
+            $gte: new Date().setHours(00, 00, 00),
+            $lt: new Date().setHours(23, 59, 59) 
+        },
+        user_id: req.query.user_id,
+        exercise_id: req.query.exercise_id
+    });
+
+    res.status(200).json(completed);
+})
 
 // Set completed
 // POST /api/completed
@@ -55,7 +76,7 @@ const updateCompleted = asyncHandler(async (req, res) => {
     const updatedcompleted = await Completed.findByIdAndUpdate(req.params.id, req.body, {
         new:true
     });
-
+  
     res.status(200).json(updatedcompleted);
 });
 
@@ -79,5 +100,6 @@ module.exports = {
     getCompleted,
     setCompleted,
     updateCompleted,
-    deleteCompleted
+    deleteCompleted,
+    getCompletedExForDay
 };
