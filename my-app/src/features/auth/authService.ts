@@ -1,7 +1,7 @@
 import axios from "axios";
-import {  IRegisterData } from "../../models/models";
+import { IRegisterData } from "../../models/models";
 
-const API_URL = '/api/users/';
+const API_URL = 'https://backend-rs-clone-production-018a.up.railway.app/api/users/';
 
 const register = async (userData: IRegisterData) => {
     const response = await axios.post(API_URL, userData);
@@ -30,9 +30,9 @@ interface UD {
 };
 
 const getMe = async (idObj: UD) => {
-    const response = await axios.get(`${API_URL}me`,  {
+    const response = await axios.get(`${API_URL}me`, {
         params: idObj
-      });
+    });
     return response.data;
 };
 

@@ -1,12 +1,12 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { IExercise } from '../../models/models';
 
-const API_URL = '/api/exercises/';
+const API_URL = 'https://backend-rs-clone-production-018a.up.railway.app/api/exercises/';
 
 export const exercisesAPI = createApi({
     reducerPath: 'exercisesAPI',
-    baseQuery: fetchBaseQuery({baseUrl: API_URL}),
-    endpoints:(build) => ({
+    baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+    endpoints: (build) => ({
         fetchAllExercises: build.query<IExercise[], string>({
             query: (program_ids) => ({
                 url: '',
@@ -16,7 +16,7 @@ export const exercisesAPI = createApi({
             })
         }),
         getOneExercise: build.query<IExercise, string>({
-            query:(id) => ({
+            query: (id) => ({
                 url: id,
             })
         })
