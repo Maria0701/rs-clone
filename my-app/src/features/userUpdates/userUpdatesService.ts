@@ -1,14 +1,14 @@
 import axios from "axios";
-import {   IUpdateData } from "../../models/models";
+import { IUpdateData } from "../../models/models";
 
-const API_URL = '/api/users/';
+const API_URL = 'https://backend-rs-clone-production-018a.up.railway.app/api/users/';
 
-const update = async(userData: IUpdateData) => {
+const update = async (userData: IUpdateData) => {
     const response = await axios.put(`${API_URL}/${userData.id}`, userData);
     return response.data;
 }
 
-const getFull = async(id: string) => {
+const getFull = async (id: string) => {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
 }
